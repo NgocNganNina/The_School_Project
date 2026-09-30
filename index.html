@@ -1,0 +1,1954 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Khám Phá Đà Nẵng - Băng Chuyền Du Lịch & Thành Phố Đáng Sống</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        serif: ['"Playfair Display"', 'serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#ecfdf5',
+                            100: '#d1fae5',
+                            500: '#0284c7',
+                            600: '#0369a1',
+                            700: '#075985',
+                            glow: '#38bdf8'
+                        },
+                        danang: {
+                            ocean: '#0ea5e9',
+                            sunset: '#f97316',
+                            gold: '#eab308',
+                            dragon: '#ef4444'
+                        }
+                    },
+                    animation: {
+                        'float-slow': 'float 6s ease-in-out infinite',
+                        'float-delayed': 'float 6s ease-in-out 3s infinite',
+                        'pulse-glow': 'pulseGlow 3s ease-in-out infinite',
+                        'shimmer': 'shimmer 2.5s linear infinite',
+                        'spin-slow': 'spin 20s linear infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-14px)' },
+                        },
+                        pulseGlow: {
+                            '0%, 100%': { opacity: '0.6', transform: 'scale(1)' },
+                            '50%': { opacity: '1', transform: 'scale(1.06)' },
+                        },
+                        shimmer: {
+                            '0%': { backgroundPosition: '-200% 0' },
+                            '100%': { backgroundPosition: '200% 0' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #0284c7;
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #38bdf8;
+        }
+
+        /* Conveyor Belt Marquee Keyframes */
+        @keyframes conveyorScrollLeft {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        @keyframes conveyorScrollRight {
+            0% {
+                transform: translateX(-50%);
+            }
+            100% {
+                transform: translateX(0);
+            }
+        }
+
+        .conveyor-track {
+            display: flex;
+            width: max-content;
+            animation: conveyorScrollLeft 38s linear infinite;
+        }
+
+        .conveyor-track-reverse {
+            display: flex;
+            width: max-content;
+            animation: conveyorScrollRight 42s linear infinite;
+        }
+
+        .conveyor-track.is-paused,
+        .conveyor-track-reverse.is-paused {
+            animation-play-state: paused !important;
+        }
+
+        .conveyor-container:hover .conveyor-track,
+        .conveyor-container:hover .conveyor-track-reverse {
+            animation-play-state: paused;
+        }
+
+        /* Glassmorphism Styles */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+
+        .glass-dark {
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Text Shimmer Effect */
+        .shimmer-text {
+            background: linear-gradient(90deg, #38bdf8 0%, #f43f5e 50%, #38bdf8 100%);
+            background-size: 200% auto;
+            color: transparent;
+            -webkit-background-clip: text;
+            background-clip: text;
+            animation: shimmer 4s linear infinite;
+        }
+
+        /* Scroll Reveal Utility Classes */
+        .reveal-element {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal-element.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Custom 3D Card Perspective */
+        .card-3d-wrap {
+            perspective: 1000px;
+        }
+
+        .card-3d {
+            transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.4s ease;
+            transform-style: preserve-3d;
+        }
+
+        /* Conveyor Track Neon Glow */
+        .conveyor-edge-gradient {
+            pointer-events: none;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 140px;
+            z-index: 20;
+        }
+
+        /* Water ripple pulse animation */
+        @keyframes ripple {
+            0% { transform: scale(0.8); opacity: 1; }
+            100% { transform: scale(2.2); opacity: 0; }
+        }
+        .ripple-effect {
+            animation: ripple 2s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+        }
+    </style>
+</head>
+<body class="bg-slate-900 text-slate-100 font-sans antialiased selection:bg-cyan-500 selection:text-white overflow-x-hidden">
+
+    <!-- Ambient Glowing Orbs Background -->
+    <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+        <div class="absolute -top-40 -left-40 w-96 h-96 bg-cyan-500/20 rounded-full blur-3xl animate-float-slow"></div>
+        <div class="absolute top-1/3 -right-40 w-[30rem] h-[30rem] bg-indigo-500/15 rounded-full blur-3xl animate-float-delayed"></div>
+        <div class="absolute -bottom-20 left-1/3 w-[32rem] h-[32rem] bg-emerald-500/15 rounded-full blur-3xl animate-float-slow"></div>
+    </div>
+
+    <!-- Navigation Bar -->
+    <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-500" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <div class="glass-dark rounded-2xl px-6 py-3.5 flex items-center justify-between shadow-2xl border border-white/10">
+                <!-- Logo -->
+                <a href="#trang-chu" class="flex items-center space-x-3 group">
+                    <div class="relative w-11 h-11 rounded-xl bg-gradient-to-tr from-cyan-500 via-sky-600 to-indigo-600 flex items-center justify-center text-white shadow-lg shadow-cyan-500/30 group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
+                        <i class="fa-solid fa-water text-xl"></i>
+                        <span class="absolute -bottom-1 -right-1 flex h-3.5 w-3.5">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-3.5 w-3.5 bg-emerald-500"></span>
+                        </span>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-1.5">
+                            <span class="text-xl font-extrabold tracking-tight bg-gradient-to-r from-cyan-300 via-sky-200 to-indigo-300 bg-clip-text text-transparent">Đà Nẵng</span>
+                            <span class="text-xs px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 font-semibold uppercase tracking-wider">Discovery</span>
+                        </div>
+                        <span class="block text-[11px] text-slate-400 font-medium">Thành phố đáng sống số 1</span>
+                    </div>
+                </a>
+
+                <!-- Desktop Navigation Links -->
+                <nav class="hidden md:flex items-center space-x-1 lg:space-x-2 bg-slate-800/40 p-1.5 rounded-xl border border-white/5">
+                    <a href="#trang-chu" class="px-3.5 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-white/10 transition-all">Trang chủ</a>
+                    <a href="#bang-chuyen" class="px-3.5 py-2 rounded-lg text-sm font-semibold text-cyan-400 bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/20 flex items-center gap-1.5 transition-all">
+                        <i class="fa-solid fa-circle-nodes animate-spin-slow"></i> Băng Chuyền Du Lịch
+                    </a>
+                    <a href="#dia-danh" class="px-3.5 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-white/10 transition-all">Địa danh</a>
+                    <a href="#di-tich" class="px-3.5 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-white/10 transition-all">Di tích</a>
+                    <a href="#nhan-vat" class="px-3.5 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-white/10 transition-all">Nhân vật</a>
+                    <a href="#dac-diem" class="px-3.5 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-white/10 transition-all">Văn hóa & Ẩm thực</a>
+                </nav>
+
+                <!-- Action Button -->
+                <div class="hidden lg:flex items-center space-x-4">
+                    <a href="#bang-chuyen" class="relative group overflow-hidden px-6 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-sky-600 text-white text-sm font-semibold shadow-lg shadow-cyan-500/25 hover:shadow-cyan-500/40 hover:scale-105 active:scale-95 transition-all">
+                        <span class="relative z-10 flex items-center gap-2">
+                            <span>Khám phá ngay</span>
+                            <i class="fa-solid fa-arrow-right-long group-hover:translate-x-1 transition-transform"></i>
+                        </span>
+                        <div class="absolute inset-0 bg-gradient-to-r from-sky-400 to-indigo-500 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="md:hidden p-2.5 rounded-xl text-slate-300 hover:text-white hover:bg-white/10 focus:outline-none transition-all">
+                    <i class="fa-solid fa-bars-staggered text-xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden max-w-7xl mx-auto px-4 sm:px-6">
+            <div class="glass-dark rounded-2xl p-4 border border-white/10 shadow-2xl space-y-2 mt-2">
+                <a href="#trang-chu" class="block px-4 py-2.5 rounded-xl text-slate-200 hover:bg-white/10 font-medium">Trang chủ</a>
+                <a href="#bang-chuyen" class="block px-4 py-2.5 rounded-xl text-cyan-400 bg-cyan-500/10 font-semibold flex items-center justify-between">
+                    <span><i class="fa-solid fa-circle-nodes mr-2"></i> Băng Chuyền Du Lịch</span>
+                    <span class="text-xs px-2 py-0.5 rounded bg-cyan-400/20">Hot</span>
+                </a>
+                <a href="#dia-danh" class="block px-4 py-2.5 rounded-xl text-slate-200 hover:bg-white/10 font-medium">Địa danh nổi bật</a>
+                <a href="#di-tich" class="block px-4 py-2.5 rounded-xl text-slate-200 hover:bg-white/10 font-medium">Di tích lịch sử</a>
+                <a href="#nhan-vat" class="block px-4 py-2.5 rounded-xl text-slate-200 hover:bg-white/10 font-medium">Nhân vật lịch sử</a>
+                <a href="#dac-diem" class="block px-4 py-2.5 rounded-xl text-slate-200 hover:bg-white/10 font-medium">Văn hóa & Đặc sản</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section with Canvas Interactive Waves & Dynamic Cards -->
+    <section id="trang-chu" class="relative min-h-screen flex items-center justify-center pt-28 pb-16 overflow-hidden z-10">
+        <!-- Interactive Canvas Particle Background -->
+        <canvas id="hero-canvas" class="absolute inset-0 w-full h-full pointer-events-none z-0 opacity-40"></canvas>
+
+        <!-- Hero Background Image & Gradient Layers -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?auto=format&fit=crop&w=2000&q=80" alt="Đà Nẵng Bay & Cầu Rồng" class="w-full h-full object-cover object-center scale-105 filter brightness-50 transition-all duration-1000">
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/70 to-slate-900/30"></div>
+            <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-cyan-900/30 via-transparent to-transparent"></div>
+        </div>
+
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 w-full">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <!-- Left Content Column -->
+                <div class="lg:col-span-7 text-left space-y-6">
+                    <!-- Floating Highlight Tag -->
+                    <div class="inline-flex items-center gap-3 px-4 py-2 rounded-full glass-dark border border-cyan-500/30 text-cyan-300 text-sm font-medium shadow-lg animate-float-slow">
+                        <span class="flex h-2.5 w-2.5 relative">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-cyan-500"></span>
+                        </span>
+                        <i class="fa-solid fa-sun text-amber-400"></i>
+                        <span>Viên ngọc du lịch & Thành phố ánh sáng miền Trung</span>
+                    </div>
+
+                    <!-- Main Catchy Title with Gradient Shimmer -->
+                    <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[1.15] text-white">
+                        Chạm Vào Vẻ Đẹp <br>
+                        <span class="shimmer-text">Đà Nẵng Kỳ Vĩ</span>
+                    </h1>
+
+                    <!-- Description -->
+                    <p class="text-lg sm:text-xl text-slate-300 leading-relaxed font-light max-w-2xl">
+                        Khám phá bức tranh hoàn mỹ nơi biển xanh cát trắng hòa quyện cùng núi non hùng vĩ, những cây cầu huyền thoại vươn mình ra đại dương và nhịp sống trẻ trung, hiếu khách bậc nhất Việt Nam.
+                    </p>
+
+                    <!-- Interactive Buttons -->
+                    <div class="flex flex-wrap items-center gap-4 pt-4">
+                        <a href="#bang-chuyen" class="px-8 py-4 rounded-2xl bg-gradient-to-r from-cyan-500 via-sky-500 to-indigo-600 text-white font-bold shadow-xl shadow-cyan-500/30 hover:shadow-cyan-500/50 hover:scale-105 active:scale-95 transition-all flex items-center gap-3 group">
+                            <i class="fa-solid fa-play text-sm group-hover:rotate-12 transition-transform"></i>
+                            <span>Trải nghiệm Băng Chuyền Địa Danh</span>
+                        </a>
+                        <a href="#dia-danh" class="px-8 py-4 rounded-2xl glass-dark hover:bg-white/10 border border-white/20 text-white font-semibold transition-all hover:scale-105 flex items-center gap-3">
+                            <i class="fa-solid fa-compass text-cyan-400"></i>
+                            <span>Bộ sưu tập điểm đến</span>
+                        </a>
+                    </div>
+
+                    <!-- Quick Live Metrics -->
+                    <div class="grid grid-cols-3 gap-4 pt-8 border-t border-white/10 max-w-lg">
+                        <div class="glass-dark p-4 rounded-2xl border border-white/10 hover:border-cyan-500/40 transition-all">
+                            <div class="text-2xl sm:text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-sky-300">12+</div>
+                            <div class="text-xs text-slate-400 font-medium mt-1">Điểm Check-in Top 1</div>
+                        </div>
+                        <div class="glass-dark p-4 rounded-2xl border border-white/10 hover:border-cyan-500/40 transition-all">
+                            <div class="text-2xl sm:text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-orange-300">60km</div>
+                            <div class="text-xs text-slate-400 font-medium mt-1">Bờ biển ngọc cát mịn</div>
+                        </div>
+                        <div class="glass-dark p-4 rounded-2xl border border-white/10 hover:border-cyan-500/40 transition-all">
+                            <div class="text-2xl sm:text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-300">100%</div>
+                            <div class="text-xs text-slate-400 font-medium mt-1">Thân thiện, Mến khách</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Hero Showcase Dynamic 3D Card Stack -->
+                <div class="lg:col-span-5 relative">
+                    <div class="relative mx-auto max-w-sm sm:max-w-md">
+                        <!-- Ambient Glow Ring -->
+                        <div class="absolute -inset-1 bg-gradient-to-r from-cyan-500 via-indigo-500 to-pink-500 rounded-3xl blur-xl opacity-50 animate-pulse-glow"></div>
+
+                        <!-- Main Featured Interactive Card -->
+                        <div class="relative glass-dark rounded-3xl overflow-hidden border border-white/20 shadow-2xl p-5 card-3d">
+                            <div class="relative h-72 rounded-2xl overflow-hidden group">
+                                <img id="hero-feature-img" src="https://images.unsplash.com/photo-1569154941061-e231b4725ef1?auto=format&fit=crop&w=800&q=80" alt="Cầu Vàng Bà Nà Hills" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                                <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent"></div>
+                                
+                                <span class="absolute top-3 left-3 px-3 py-1 rounded-full bg-slate-900/80 backdrop-blur-md text-xs font-bold text-amber-400 border border-amber-400/30 flex items-center gap-1.5">
+                                    <i class="fa-solid fa-crown text-[10px]"></i> Kỳ quan thế giới
+                                </span>
+
+                                <div class="absolute bottom-3 left-3 right-3 flex items-center justify-between text-white">
+                                    <div>
+                                        <h3 class="text-lg font-bold">Cầu Vàng Bà Nà Hills</h3>
+                                        <p class="text-xs text-slate-300"><i class="fa-solid fa-location-dot text-rose-400 mr-1"></i> Độ cao 1,414m - Đỉnh Bà Nà</p>
+                                    </div>
+                                    <button onclick="openDetailModal('Cầu Vàng Bà Nà Hills', 'Cầu Vàng tại Sun World Ba Na Hills là biểu tượng kiến trúc vươn tầm thế giới của du lịch Đà Nẵng và Việt Nam. Cây cầu tựa như một dải lụa vàng lơ lửng giữa mây trời, được nâng đỡ bởi hai bàn tay khổng lồ rêu phong kỳ vĩ giữa cảnh sắc thiên nhiên hùng vĩ.', 'https://images.unsplash.com/photo-1569154941061-e231b4725ef1?auto=format&fit=crop&w=1200&q=80')" class="w-10 h-10 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-white flex items-center justify-center shadow-lg transition-transform hover:scale-110">
+                                        <i class="fa-solid fa-arrow-up-right-from-square text-sm"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Live Weather & Mood Widget -->
+                            <div class="mt-4 pt-4 border-t border-white/10 grid grid-cols-2 gap-3 text-xs">
+                                <div class="flex items-center gap-2.5 bg-white/5 p-2.5 rounded-xl">
+                                    <div class="w-8 h-8 rounded-lg bg-amber-400/20 text-amber-400 flex items-center justify-center text-sm">
+                                        <i class="fa-solid fa-cloud-sun"></i>
+                                    </div>
+                                    <div>
+                                        <div class="text-slate-400">Thời tiết Đà Nẵng</div>
+                                        <div class="font-bold text-white">28°C • Nắng êm dịu</div>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-2.5 bg-white/5 p-2.5 rounded-xl">
+                                    <div class="w-8 h-8 rounded-lg bg-cyan-400/20 text-cyan-400 flex items-center justify-center text-sm">
+                                        <i class="fa-solid fa-fire text-rose-400"></i>
+                                    </div>
+                                    <div>
+                                        <div class="text-slate-400">Phun Lửa Cầu Rồng</div>
+                                        <div class="font-bold text-white">21:00 T7 & CN</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Decorative Floating Badges -->
+                        <div class="absolute -top-6 -right-6 glass-dark p-3.5 rounded-2xl border border-cyan-400/30 shadow-xl animate-float-slow flex items-center gap-3">
+                            <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-amber-400 to-orange-500 flex items-center justify-center text-white shadow-md">
+                                <i class="fa-solid fa-camera"></i>
+                            </div>
+                            <div>
+                                <span class="text-xs font-bold text-white block">Top 10 Forbes</span>
+                                <span class="text-[10px] text-cyan-300">Bãi biển đẹp nhất hành tinh</span>
+                            </div>
+                        </div>
+
+                        <div class="absolute -bottom-6 -left-6 glass-dark p-3.5 rounded-2xl border border-indigo-400/30 shadow-xl animate-float-delayed flex items-center gap-3">
+                            <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-cyan-400 to-blue-600 flex items-center justify-center text-white shadow-md">
+                                <i class="fa-solid fa-compass"></i>
+                            </div>
+                            <div>
+                                <span class="text-xs font-bold text-white block">Tour Trực Tuyến 360°</span>
+                                <span class="text-[10px] text-indigo-300">Khám phá không giới hạn</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Wave Divider Bottom -->
+        <div class="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-slate-950 to-transparent pointer-events-none"></div>
+    </section>
+
+    <!-- SECTION: MOVING CONVEYOR BELT SHOWCASE (BĂNG CHUYỀN KHÁM PHÁ ĐỊA DANH) -->
+    <section id="bang-chuyen" class="py-24 bg-slate-950 relative overflow-hidden border-t border-b border-cyan-900/30 z-20">
+        <!-- Section Ambient Lights -->
+        <div class="absolute top-1/2 left-1/4 -translate-y-1/2 w-96 h-96 bg-cyan-500/10 rounded-full blur-[120px] pointer-events-none"></div>
+        <div class="absolute top-1/2 right-1/4 -translate-y-1/2 w-96 h-96 bg-indigo-500/10 rounded-full blur-[120px] pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12 relative z-10">
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+                <div>
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-xs font-bold uppercase tracking-widest mb-3">
+                        <i class="fa-solid fa-arrows-spin animate-spin-slow"></i> Băng Chuyền Du Lịch Tự Động
+                    </div>
+                    <h2 class="text-3xl sm:text-5xl font-black text-white tracking-tight">
+                        Chuyến Hành Trình <span class="bg-gradient-to-r from-cyan-400 via-sky-300 to-indigo-400 bg-clip-text text-transparent">Băng Chuyền Danh Thắng</span>
+                    </h2>
+                    <p class="text-slate-400 text-base sm:text-lg mt-3 max-w-2xl">
+                        Dải băng chuyền di chuyển mượt mà liên tục đưa bạn lướt qua toàn cảnh những kỳ quan, bãi biển quyến rũ, cây cầu huyền thoại và di sản bất hủ của Đà Nẵng. <span class="text-cyan-300 font-medium">Rê chuột để tạm dừng hoặc click để mở xem chi tiết.</span>
+                    </p>
+                </div>
+
+                <!-- Conveyor Interactive Controls -->
+                <div class="flex flex-wrap items-center gap-3">
+                    <!-- Speed Controller -->
+                    <div class="glass-dark px-4 py-2 rounded-2xl border border-white/10 flex items-center gap-3">
+                        <span class="text-xs text-slate-400 font-semibold flex items-center gap-1.5">
+                            <i class="fa-solid fa-gauge-high text-cyan-400"></i> Tốc độ:
+                        </span>
+                        <button onclick="setConveyorSpeed('slow')" id="speed-slow" class="px-2.5 py-1 rounded-lg text-xs font-semibold text-slate-300 hover:text-white hover:bg-white/10 transition-colors">Chậm</button>
+                        <button onclick="setConveyorSpeed('normal')" id="speed-normal" class="px-2.5 py-1 rounded-lg text-xs font-bold text-cyan-300 bg-cyan-500/20 border border-cyan-500/30 transition-colors">Chuẩn</button>
+                        <button onclick="setConveyorSpeed('fast')" id="speed-fast" class="px-2.5 py-1 rounded-lg text-xs font-semibold text-slate-300 hover:text-white hover:bg-white/10 transition-colors">Nhanh</button>
+                    </div>
+
+                    <!-- Pause / Play Toggle -->
+                    <button onclick="toggleConveyorPlay()" id="conveyor-play-btn" class="glass-dark px-4 py-2.5 rounded-2xl border border-white/10 text-slate-200 hover:text-white hover:border-cyan-500/40 text-sm font-semibold flex items-center gap-2 transition-all">
+                        <i class="fa-solid fa-pause text-cyan-400" id="play-pause-icon"></i>
+                        <span id="play-pause-text">Tạm dừng</span>
+                    </button>
+
+                    <!-- Reverse Direction -->
+                    <button onclick="reverseConveyorDirection()" title="Đảo chiều băng chuyền" class="glass-dark w-11 h-11 rounded-2xl border border-white/10 text-slate-200 hover:text-cyan-300 hover:border-cyan-500/40 flex items-center justify-center transition-all">
+                        <i class="fa-solid fa-arrows-left-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Conveyor Track Wrapper with Glowing Side Edges -->
+        <div class="relative w-full overflow-hidden conveyor-container py-4 space-y-6">
+            <!-- Left Gradient Edge -->
+            <div class="conveyor-edge-gradient left-0 bg-gradient-to-r from-slate-950 via-slate-950/80 to-transparent"></div>
+            <!-- Right Gradient Edge -->
+            <div class="conveyor-edge-gradient right-0 bg-gradient-to-l from-slate-950 via-slate-950/80 to-transparent"></div>
+
+            <!-- TRACK 1: Lướt sang trái (Moving Left) -->
+            <div class="conveyor-track" id="conveyor-track-1">
+                <!-- Card 1: Cầu Rồng -->
+                <div class="w-80 sm:w-96 flex-shrink-0 mx-3 group cursor-pointer" onclick="openDetailModal('Cầu Rồng Phun Lửa', 'Cầu Rồng Đà Nẵng dài 666 mét, hình dáng rồng thép thời Lý uốn lượn vượt sông Hàn vươn ra biển Đông. Điểm đặc sắc nhất là màn phun lửa và phun nước rực sáng bầu trời vào 21h thứ Bảy, Chủ Nhật và các ngày lễ lớn.', 'https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?auto=format&fit=crop&w=1200&q=80')">
+                    <div class="glass-dark rounded-3xl overflow-hidden border border-white/10 group-hover:border-cyan-400/60 group-hover:shadow-2xl group-hover:shadow-cyan-500/20 transition-all duration-500 transform group-hover:-translate-y-2">
+                        <div class="relative h-56 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?auto=format&fit=crop&w=800&q=80" alt="Cầu Rồng" class="w-full h-full object-cover group-hover:scale-115 transition-transform duration-700">
+                            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent"></div>
+                            <span class="absolute top-3.5 left-3.5 px-3 py-1 rounded-full bg-rose-500/90 backdrop-blur-md text-[11px] font-bold text-white shadow">
+                                <i class="fa-solid fa-fire mr-1"></i> Phun lửa cuối tuần
+                            </span>
+                            <span class="absolute bottom-3.5 right-3.5 px-2.5 py-1 rounded-lg bg-slate-900/80 backdrop-blur-md text-xs font-semibold text-amber-300">
+                                <i class="fa-solid fa-star text-amber-400 mr-1"></i> 4.9 (15k+ review)
+                            </span>
+                        </div>
+                        <div class="p-5">
+                            <div class="flex items-center justify-between mb-1.5">
+                                <h4 class="text-xl font-bold text-white group-hover:text-cyan-300 transition-colors">Cầu Rồng Đà Nẵng</h4>
+                                <span class="text-xs text-cyan-400 font-semibold"><i class="fa-solid fa-location-dot"></i> Sông Hàn</span>
+                            </div>
+                            <p class="text-slate-400 text-xs line-clamp-2 leading-relaxed mb-4">
+                                Cây cầu kiến trúc rồng thép độc nhất vô nhị, biểu tượng cho khát vọng vươn mình của thành phố trẻ Đà Nẵng.
+                            </p>
+                            <div class="flex items-center justify-between pt-3 border-t border-white/10 text-xs">
+                                <span class="text-slate-400"><i class="fa-regular fa-clock text-cyan-400 mr-1"></i> Mở cửa 24/7</span>
+                                <span class="text-cyan-400 font-bold group-hover:underline flex items-center gap-1">Khám phá <i class="fa-solid fa-chevron-right text-[10px]"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2: Bà Nà Hills - Cầu Vàng -->
+                <div class="w-80 sm:w-96 flex-shrink-0 mx-3 group cursor-pointer" onclick="openDetailModal('Bà Nà Hills & Cầu Vàng', 'Bà Nà Hills tọa lạc tại độ cao 1.487m trên núi Chúa, khí hậu mát mẻ 4 mùa trong 1 ngày. Nơi đây sở hữu Làng Pháp thơ mộng, Cầu Vàng bàn tay khổng lồ vang danh thế giới, cáp treo đạt nhiều kỷ lục Guinness.', 'https://images.unsplash.com/photo-1569154941061-e231b4725ef1?auto=format&fit=crop&w=1200&q=80')">
+                    <div class="glass-dark rounded-3xl overflow-hidden border border-white/10 group-hover:border-cyan-400/60 group-hover:shadow-2xl group-hover:shadow-cyan-500/20 transition-all duration-500 transform group-hover:-translate-y-2">
+                        <div class="relative h-56 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1569154941061-e231b4725ef1?auto=format&fit=crop&w=800&q=80" alt="Bà Nà Hills" class="w-full h-full object-cover group-hover:scale-115 transition-transform duration-700">
+                            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent"></div>
+                            <span class="absolute top-3.5 left-3.5 px-3 py-1 rounded-full bg-amber-500/90 backdrop-blur-md text-[11px] font-bold text-white shadow">
+                                <i class="fa-solid fa-award mr-1"></i> Kỳ quan Cầu Vàng
+                            </span>
+                            <span class="absolute bottom-3.5 right-3.5 px-2.5 py-1 rounded-lg bg-slate-900/80 backdrop-blur-md text-xs font-semibold text-amber-300">
+                                <i class="fa-solid fa-star text-amber-400 mr-1"></i> 5.0 (28k+ review)
+                            </span>
+                        </div>
+                        <div class="p-5">
+                            <div class="flex items-center justify-between mb-1.5">
+                                <h4 class="text-xl font-bold text-white group-hover:text-cyan-300 transition-colors">Bà Nà Hills & Cầu Vàng</h4>
+                                <span class="text-xs text-cyan-400 font-semibold"><i class="fa-solid fa-location-dot"></i> Hòa Vang</span>
+                            </div>
+                            <p class="text-slate-400 text-xs line-clamp-2 leading-relaxed mb-4">
+                                Đường lên tiên cảnh giữa đỉnh núi mù sương cùng dải lụa vàng được đôi bàn tay khổng lồ nâng đỡ giữa ngàn mây.
+                            </p>
+                            <div class="flex items-center justify-between pt-3 border-t border-white/10 text-xs">
+                                <span class="text-slate-400"><i class="fa-solid fa-cloud-sun text-cyan-400 mr-1"></i> Khí hậu 4 mùa</span>
+                                <span class="text-cyan-400 font-bold group-hover:underline flex items-center gap-1">Khám phá <i class="fa-solid fa-chevron-right text-[10px]"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3: Biển Mỹ Khê -->
+                <div class="w-80 sm:w-96 flex-shrink-0 mx-3 group cursor-pointer" onclick="openDetailModal('Bãi Biển Mỹ Khê', 'Bãi biển Mỹ Khê trải dài thoai thoải với dải cát trắng mịn màng, làn nước ấm áp trong vắt quanh năm, sóng vỗ êm đềm và hàng dừa nghiêng bóng. Được tạp chí Forbes bình chọn là 1 trong 6 bãi biển quyến rũ nhất hành tinh.', 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80')">
+                    <div class="glass-dark rounded-3xl overflow-hidden border border-white/10 group-hover:border-cyan-400/60 group-hover:shadow-2xl group-hover:shadow-cyan-500/20 transition-all duration-500 transform group-hover:-translate-y-2">
+                        <div class="relative h-56 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80" alt="Biển Mỹ Khê" class="w-full h-full object-cover group-hover:scale-115 transition-transform duration-700">
+                            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent"></div>
+                            <span class="absolute top-3.5 left-3.5 px-3 py-1 rounded-full bg-cyan-500/90 backdrop-blur-md text-[11px] font-bold text-white shadow">
+                                <i class="fa-solid fa-umbrella-beach mr-1"></i> Top 6 Hành Tinh
+                            </span>
+                            <span class="absolute bottom-3.5 right-3.5 px-2.5 py-1 rounded-lg bg-slate-900/80 backdrop-blur-md text-xs font-semibold text-amber-300">
+                                <i class="fa-solid fa-star text-amber-400 mr-1"></i> 4.9 (22k+ review)
+                            </span>
+                        </div>
+                        <div class="p-5">
+                            <div class="flex items-center justify-between mb-1.5">
+                                <h4 class="text-xl font-bold text-white group-hover:text-cyan-300 transition-colors">Bãi Biển Mỹ Khê</h4>
+                                <span class="text-xs text-cyan-400 font-semibold"><i class="fa-solid fa-location-dot"></i> Sơn Trà</span>
+                            </div>
+                            <p class="text-slate-400 text-xs line-clamp-2 leading-relaxed mb-4">
+                                Bãi tắm thiên đường ngập tràn nắng vàng, rợp bóng dừa xanh và đa dạng các hoạt động lướt sóng, dù lượn, lặn biển.
+                            </p>
+                            <div class="flex items-center justify-between pt-3 border-t border-white/10 text-xs">
+                                <span class="text-slate-400"><i class="fa-solid fa-water text-cyan-400 mr-1"></i> Nước trong xanh quanh năm</span>
+                                <span class="text-cyan-400 font-bold group-hover:underline flex items-center gap-1">Khám phá <i class="fa-solid fa-chevron-right text-[10px]"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 4: Bán Đảo Sơn Trà & Chùa Linh Ứng -->
+                <div class="w-80 sm:w-96 flex-shrink-0 mx-3 group cursor-pointer" onclick="openDetailModal('Bán Đảo Sơn Trà & Chùa Linh Ứng', 'Bán đảo Sơn Trà được mệnh danh là lá phổi xanh của Đà Nẵng, nơi cư ngụ của loài Voọc Chà Vá Chân Nâu - nữ hoàng linh trưởng. Chùa Linh Ứng Bãi Bụt nổi tiếng với tượng Phật Bà Quan Âm cao 67 mét hướng mắt ra biển đông cầu bình an cho ngư dân.', 'https://images.unsplash.com/photo-1583417319070-4a69db38a482?auto=format&fit=crop&w=1200&q=80')">
+                    <div class="glass-dark rounded-3xl overflow-hidden border border-white/10 group-hover:border-cyan-400/60 group-hover:shadow-2xl group-hover:shadow-cyan-500/20 transition-all duration-500 transform group-hover:-translate-y-2">
+                        <div class="relative h-56 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1583417319070-4a69db38a482?auto=format&fit=crop&w=800&q=80" alt="Bán đảo Sơn Trà" class="w-full h-full object-cover group-hover:scale-115 transition-transform duration-700">
+                            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent"></div>
+                            <span class="absolute top-3.5 left-3.5 px-3 py-1 rounded-full bg-emerald-500/90 backdrop-blur-md text-[11px] font-bold text-white shadow">
+                                <i class="fa-solid fa-tree mr-1"></i> Lá Phổi Xanh
+                            </span>
+                            <span class="absolute bottom-3.5 right-3.5 px-2.5 py-1 rounded-lg bg-slate-900/80 backdrop-blur-md text-xs font-semibold text-amber-300">
+                                <i class="fa-solid fa-star text-amber-400 mr-1"></i> 4.9 (18k+ review)
+                            </span>
+                        </div>
+                        <div class="p-5">
+                            <div class="flex items-center justify-between mb-1.5">
+                                <h4 class="text-xl font-bold text-white group-hover:text-cyan-300 transition-colors">Bán Đảo Sơn Trà & Chùa Linh Ứng</h4>
+                                <span class="text-xs text-cyan-400 font-semibold"><i class="fa-solid fa-location-dot"></i> Sơn Trà</span>
+                            </div>
+                            <p class="text-slate-400 text-xs line-clamp-2 leading-relaxed mb-4">
+                                Rừng nguyên sinh hùng vĩ ôm trọn bờ biển ngọc, tượng Quan Âm 67m uy nghiêm và nơi ngắm hoàng hôn đỉnh cao.
+                            </p>
+                            <div class="flex items-center justify-between pt-3 border-t border-white/10 text-xs">
+                                <span class="text-slate-400"><i class="fa-solid fa-paw text-cyan-400 mr-1"></i> Voọc Chà Vá chân nâu</span>
+                                <span class="text-cyan-400 font-bold group-hover:underline flex items-center gap-1">Khám phá <i class="fa-solid fa-chevron-right text-[10px]"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 5: Ngũ Hành Sơn -->
+                <div class="w-80 sm:w-96 flex-shrink-0 mx-3 group cursor-pointer" onclick="openDetailModal('Danh Thắng Ngũ Hành Sơn', 'Quần thể 5 ngọn núi đá vôi mang tên Kim - Mộc - Thủy - Hỏa - Thổ, gắn liền với nhiều huyền tích lịch sử. Nơi đây có động Huyền Không kỳ ảo với luồng ánh sáng mặt trời chiếu rọi từ vòm hang, động Âm Phủ, chùa Linh Ứng Non Nước cổ kính.', 'https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=1200&q=80')">
+                    <div class="glass-dark rounded-3xl overflow-hidden border border-white/10 group-hover:border-cyan-400/60 group-hover:shadow-2xl group-hover:shadow-cyan-500/20 transition-all duration-500 transform group-hover:-translate-y-2">
+                        <div class="relative h-56 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=800&q=80" alt="Ngũ Hành Sơn" class="w-full h-full object-cover group-hover:scale-115 transition-transform duration-700">
+                            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent"></div>
+                            <span class="absolute top-3.5 left-3.5 px-3 py-1 rounded-full bg-purple-500/90 backdrop-blur-md text-[11px] font-bold text-white shadow">
+                                <i class="fa-solid fa-mountain mr-1"></i> Non Nước Cổ Kính
+                            </span>
+                            <span class="absolute bottom-3.5 right-3.5 px-2.5 py-1 rounded-lg bg-slate-900/80 backdrop-blur-md text-xs font-semibold text-amber-300">
+                                <i class="fa-solid fa-star text-amber-400 mr-1"></i> 4.8 (12k+ review)
+                            </span>
+                        </div>
+                        <div class="p-5">
+                            <div class="flex items-center justify-between mb-1.5">
+                                <h4 class="text-xl font-bold text-white group-hover:text-cyan-300 transition-colors">Danh Thắng Ngũ Hành Sơn</h4>
+                                <span class="text-xs text-cyan-400 font-semibold"><i class="fa-solid fa-location-dot"></i> Ngũ Hành Sơn</span>
+                            </div>
+                            <p class="text-slate-400 text-xs line-clamp-2 leading-relaxed mb-4">
+                                Kỳ quan 5 ngọn núi đá vôi huyền thoại, hang động tâm linh kỳ bí và làng nghề điêu khắc đá Non Nước trăm năm.
+                            </p>
+                            <div class="flex items-center justify-between pt-3 border-t border-white/10 text-xs">
+                                <span class="text-slate-400"><i class="fa-solid fa-place-of-worship text-cyan-400 mr-1"></i> Động Huyền Không</span>
+                                <span class="text-cyan-400 font-bold group-hover:underline flex items-center gap-1">Khám phá <i class="fa-solid fa-chevron-right text-[10px]"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 6: Đèo Hải Vân -->
+                <div class="w-80 sm:w-96 flex-shrink-0 mx-3 group cursor-pointer" onclick="openDetailModal('Đèo Hải Vân - Thiên Hạ Đệ Nhất Hùng Quan', 'Cung đường đèo ven biển đẹp nhất Việt Nam với những khúc cua uốn lượn ngoạn mục giữa mây ngàn và biển cả. Đỉnh đèo là di tích Hải Vân Quan - cửa ải quân sự lịch sử thời nhà Nguyễn với tầm nhìn bao quát trọn vịnh Đà Nẵng.', 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80')">
+                    <div class="glass-dark rounded-3xl overflow-hidden border border-white/10 group-hover:border-cyan-400/60 group-hover:shadow-2xl group-hover:shadow-cyan-500/20 transition-all duration-500 transform group-hover:-translate-y-2">
+                        <div class="relative h-56 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80" alt="Đèo Hải Vân" class="w-full h-full object-cover group-hover:scale-115 transition-transform duration-700">
+                            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent"></div>
+                            <span class="absolute top-3.5 left-3.5 px-3 py-1 rounded-full bg-blue-500/90 backdrop-blur-md text-[11px] font-bold text-white shadow">
+                                <i class="fa-solid fa-road mr-1"></i> Cung Đèo Tuyệt Mỹ
+                            </span>
+                            <span class="absolute bottom-3.5 right-3.5 px-2.5 py-1 rounded-lg bg-slate-900/80 backdrop-blur-md text-xs font-semibold text-amber-300">
+                                <i class="fa-solid fa-star text-amber-400 mr-1"></i> 4.9 (14k+ review)
+                            </span>
+                        </div>
+                        <div class="p-5">
+                            <div class="flex items-center justify-between mb-1.5">
+                                <h4 class="text-xl font-bold text-white group-hover:text-cyan-300 transition-colors">Đèo Hải Vân & Hải Vân Quan</h4>
+                                <span class="text-xs text-cyan-400 font-semibold"><i class="fa-solid fa-location-dot"></i> Liên Chiểu</span>
+                            </div>
+                            <p class="text-slate-400 text-xs line-clamp-2 leading-relaxed mb-4">
+                                Thiên hạ đệ nhất hùng quan nơi mây vờn đỉnh núi, cung đường check-in xe máy và ngắm vịnh biển lộng gió đẹp đến nghẹt thở.
+                            </p>
+                            <div class="flex items-center justify-between pt-3 border-t border-white/10 text-xs">
+                                <span class="text-slate-400"><i class="fa-solid fa-cloud text-cyan-400 mr-1"></i> Săn mây bình minh</span>
+                                <span class="text-cyan-400 font-bold group-hover:underline flex items-center gap-1">Khám phá <i class="fa-solid fa-chevron-right text-[10px]"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DUPLICATE OF TRACK 1 FOR SEAMLESS INFINITE LOOP -->
+                <div class="w-80 sm:w-96 flex-shrink-0 mx-3 group cursor-pointer" onclick="openDetailModal('Cầu Rồng Phun Lửa', 'Cầu Rồng Đà Nẵng dài 666 mét, hình dáng rồng thép thời Lý uốn lượn vượt sông Hàn vươn ra biển Đông. Điểm đặc sắc nhất là màn phun lửa và phun nước rực sáng bầu trời vào 21h thứ Bảy, Chủ Nhật và các ngày lễ lớn.', 'https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?auto=format&fit=crop&w=1200&q=80')">
+                    <div class="glass-dark rounded-3xl overflow-hidden border border-white/10 group-hover:border-cyan-400/60 group-hover:shadow-2xl group-hover:shadow-cyan-500/20 transition-all duration-500 transform group-hover:-translate-y-2">
+                        <div class="relative h-56 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?auto=format&fit=crop&w=800&q=80" alt="Cầu Rồng" class="w-full h-full object-cover group-hover:scale-115 transition-transform duration-700">
+                            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent"></div>
+                            <span class="absolute top-3.5 left-3.5 px-3 py-1 rounded-full bg-rose-500/90 backdrop-blur-md text-[11px] font-bold text-white shadow">
+                                <i class="fa-solid fa-fire mr-1"></i> Phun lửa cuối tuần
+                            </span>
+                            <span class="absolute bottom-3.5 right-3.5 px-2.5 py-1 rounded-lg bg-slate-900/80 backdrop-blur-md text-xs font-semibold text-amber-300">
+                                <i class="fa-solid fa-star text-amber-400 mr-1"></i> 4.9 (15k+ review)
+                            </span>
+                        </div>
+                        <div class="p-5">
+                            <div class="flex items-center justify-between mb-1.5">
+                                <h4 class="text-xl font-bold text-white group-hover:text-cyan-300 transition-colors">Cầu Rồng Đà Nẵng</h4>
+                                <span class="text-xs text-cyan-400 font-semibold"><i class="fa-solid fa-location-dot"></i> Sông Hàn</span>
+                            </div>
+                            <p class="text-slate-400 text-xs line-clamp-2 leading-relaxed mb-4">
+                                Cây cầu kiến trúc rồng thép độc nhất vô nhị, biểu tượng cho khát vọng vươn mình của thành phố trẻ Đà Nẵng.
+                            </p>
+                            <div class="flex items-center justify-between pt-3 border-t border-white/10 text-xs">
+                                <span class="text-slate-400"><i class="fa-regular fa-clock text-cyan-400 mr-1"></i> Mở cửa 24/7</span>
+                                <span class="text-cyan-400 font-bold group-hover:underline flex items-center gap-1">Khám phá <i class="fa-solid fa-chevron-right text-[10px]"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="w-80 sm:w-96 flex-shrink-0 mx-3 group cursor-pointer" onclick="openDetailModal('Bà Nà Hills & Cầu Vàng', 'Bà Nà Hills tọa lạc tại độ cao 1.487m trên núi Chúa, khí hậu mát mẻ 4 mùa trong 1 ngày. Nơi đây sở hữu Làng Pháp thơ mộng, Cầu Vàng bàn tay khổng lồ vang danh thế giới, cáp treo đạt nhiều kỷ lục Guinness.', 'https://images.unsplash.com/photo-1569154941061-e231b4725ef1?auto=format&fit=crop&w=1200&q=80')">
+                    <div class="glass-dark rounded-3xl overflow-hidden border border-white/10 group-hover:border-cyan-400/60 group-hover:shadow-2xl group-hover:shadow-cyan-500/20 transition-all duration-500 transform group-hover:-translate-y-2">
+                        <div class="relative h-56 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1569154941061-e231b4725ef1?auto=format&fit=crop&w=800&q=80" alt="Bà Nà Hills" class="w-full h-full object-cover group-hover:scale-115 transition-transform duration-700">
+                            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent"></div>
+                            <span class="absolute top-3.5 left-3.5 px-3 py-1 rounded-full bg-amber-500/90 backdrop-blur-md text-[11px] font-bold text-white shadow">
+                                <i class="fa-solid fa-award mr-1"></i> Kỳ quan Cầu Vàng
+                            </span>
+                            <span class="absolute bottom-3.5 right-3.5 px-2.5 py-1 rounded-lg bg-slate-900/80 backdrop-blur-md text-xs font-semibold text-amber-300">
+                                <i class="fa-solid fa-star text-amber-400 mr-1"></i> 5.0 (28k+ review)
+                            </span>
+                        </div>
+                        <div class="p-5">
+                            <div class="flex items-center justify-between mb-1.5">
+                                <h4 class="text-xl font-bold text-white group-hover:text-cyan-300 transition-colors">Bà Nà Hills & Cầu Vàng</h4>
+                                <span class="text-xs text-cyan-400 font-semibold"><i class="fa-solid fa-location-dot"></i> Hòa Vang</span>
+                            </div>
+                            <p class="text-slate-400 text-xs line-clamp-2 leading-relaxed mb-4">
+                                Đường lên tiên cảnh giữa đỉnh núi mù sương cùng dải lụa vàng được đôi bàn tay khổng lồ nâng đỡ giữa ngàn mây.
+                            </p>
+                            <div class="flex items-center justify-between pt-3 border-t border-white/10 text-xs">
+                                <span class="text-slate-400"><i class="fa-solid fa-cloud-sun text-cyan-400 mr-1"></i> Khí hậu 4 mùa</span>
+                                <span class="text-cyan-400 font-bold group-hover:underline flex items-center gap-1">Khám phá <i class="fa-solid fa-chevron-right text-[10px]"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="w-80 sm:w-96 flex-shrink-0 mx-3 group cursor-pointer" onclick="openDetailModal('Bãi Biển Mỹ Khê', 'Bãi biển Mỹ Khê trải dài thoai thoải với dải cát trắng mịn màng, làn nước ấm áp trong vắt quanh năm, sóng vỗ êm đềm và hàng dừa nghiêng bóng. Được tạp chí Forbes bình chọn là 1 trong 6 bãi biển quyến rũ nhất hành tinh.', 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80')">
+                    <div class="glass-dark rounded-3xl overflow-hidden border border-white/10 group-hover:border-cyan-400/60 group-hover:shadow-2xl group-hover:shadow-cyan-500/20 transition-all duration-500 transform group-hover:-translate-y-2">
+                        <div class="relative h-56 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80" alt="Biển Mỹ Khê" class="w-full h-full object-cover group-hover:scale-115 transition-transform duration-700">
+                            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent"></div>
+                            <span class="absolute top-3.5 left-3.5 px-3 py-1 rounded-full bg-cyan-500/90 backdrop-blur-md text-[11px] font-bold text-white shadow">
+                                <i class="fa-solid fa-umbrella-beach mr-1"></i> Top 6 Hành Tinh
+                            </span>
+                            <span class="absolute bottom-3.5 right-3.5 px-2.5 py-1 rounded-lg bg-slate-900/80 backdrop-blur-md text-xs font-semibold text-amber-300">
+                                <i class="fa-solid fa-star text-amber-400 mr-1"></i> 4.9 (22k+ review)
+                            </span>
+                        </div>
+                        <div class="p-5">
+                            <div class="flex items-center justify-between mb-1.5">
+                                <h4 class="text-xl font-bold text-white group-hover:text-cyan-300 transition-colors">Bãi Biển Mỹ Khê</h4>
+                                <span class="text-xs text-cyan-400 font-semibold"><i class="fa-solid fa-location-dot"></i> Sơn Trà</span>
+                            </div>
+                            <p class="text-slate-400 text-xs line-clamp-2 leading-relaxed mb-4">
+                                Bãi tắm thiên đường ngập tràn nắng vàng, rợp bóng dừa xanh và đa dạng các hoạt động lướt sóng, dù lượn, lặn biển.
+                            </p>
+                            <div class="flex items-center justify-between pt-3 border-t border-white/10 text-xs">
+                                <span class="text-slate-400"><i class="fa-solid fa-water text-cyan-400 mr-1"></i> Nước trong xanh quanh năm</span>
+                                <span class="text-cyan-400 font-bold group-hover:underline flex items-center gap-1">Khám phá <i class="fa-solid fa-chevron-right text-[10px]"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="w-80 sm:w-96 flex-shrink-0 mx-3 group cursor-pointer" onclick="openDetailModal('Bán Đảo Sơn Trà & Chùa Linh Ứng', 'Bán đảo Sơn Trà được mệnh danh là lá phổi xanh của Đà Nẵng, nơi cư ngụ của loài Voọc Chà Vá Chân Nâu - nữ hoàng linh trưởng. Chùa Linh Ứng Bãi Bụt nổi tiếng với tượng Phật Bà Quan Âm cao 67 mét hướng mắt ra biển đông cầu bình an cho ngư dân.', 'https://images.unsplash.com/photo-1583417319070-4a69db38a482?auto=format&fit=crop&w=1200&q=80')">
+                    <div class="glass-dark rounded-3xl overflow-hidden border border-white/10 group-hover:border-cyan-400/60 group-hover:shadow-2xl group-hover:shadow-cyan-500/20 transition-all duration-500 transform group-hover:-translate-y-2">
+                        <div class="relative h-56 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1583417319070-4a69db38a482?auto=format&fit=crop&w=800&q=80" alt="Bán đảo Sơn Trà" class="w-full h-full object-cover group-hover:scale-115 transition-transform duration-700">
+                            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent"></div>
+                            <span class="absolute top-3.5 left-3.5 px-3 py-1 rounded-full bg-emerald-500/90 backdrop-blur-md text-[11px] font-bold text-white shadow">
+                                <i class="fa-solid fa-tree mr-1"></i> Lá Phổi Xanh
+                            </span>
+                            <span class="absolute bottom-3.5 right-3.5 px-2.5 py-1 rounded-lg bg-slate-900/80 backdrop-blur-md text-xs font-semibold text-amber-300">
+                                <i class="fa-solid fa-star text-amber-400 mr-1"></i> 4.9 (18k+ review)
+                            </span>
+                        </div>
+                        <div class="p-5">
+                            <div class="flex items-center justify-between mb-1.5">
+                                <h4 class="text-xl font-bold text-white group-hover:text-cyan-300 transition-colors">Bán Đảo Sơn Trà & Chùa Linh Ứng</h4>
+                                <span class="text-xs text-cyan-400 font-semibold"><i class="fa-solid fa-location-dot"></i> Sơn Trà</span>
+                            </div>
+                            <p class="text-slate-400 text-xs line-clamp-2 leading-relaxed mb-4">
+                                Rừng nguyên sinh hùng vĩ ôm trọn bờ biển ngọc, tượng Quan Âm 67m uy nghiêm và nơi ngắm hoàng hôn đỉnh cao.
+                            </p>
+                            <div class="flex items-center justify-between pt-3 border-t border-white/10 text-xs">
+                                <span class="text-slate-400"><i class="fa-solid fa-paw text-cyan-400 mr-1"></i> Voọc Chà Vá chân nâu</span>
+                                <span class="text-cyan-400 font-bold group-hover:underline flex items-center gap-1">Khám phá <i class="fa-solid fa-chevron-right text-[10px]"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TRACK 2: Lướt sang phải (Reverse / Moving Right) -->
+            <div class="conveyor-track-reverse" id="conveyor-track-2">
+                <!-- Card 7: Cầu Tình Yêu & Tượng Cá Chép Hóa Rồng -->
+                <div class="w-80 sm:w-96 flex-shrink-0 mx-3 group cursor-pointer" onclick="openDetailModal('Cầu Tình Yêu & Cá Chép Hóa Rồng', 'Cầu Tình Yêu với hàng trăm cây cột đèn trái tim đỏ rực lãng mạn bên bờ sông Hàn, nơi các cặp đôi gắn kết những ổ khóa tình yêu bền chặt. Ngay bên cạnh là tượng Cá Chép Hóa Rồng phun nước trắng xóa như biểu tượng Merlion của Đà Nẵng.', 'https://images.unsplash.com/photo-1508672019048-805b876b67e2?auto=format&fit=crop&w=1200&q=80')">
+                    <div class="glass-dark rounded-3xl overflow-hidden border border-white/10 group-hover:border-pink-400/60 group-hover:shadow-2xl group-hover:shadow-pink-500/20 transition-all duration-500 transform group-hover:-translate-y-2">
+                        <div class="relative h-56 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1508672019048-805b876b67e2?auto=format&fit=crop&w=800&q=80" alt="Cầu Tình Yêu" class="w-full h-full object-cover group-hover:scale-115 transition-transform duration-700">
+                            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent"></div>
+                            <span class="absolute top-3.5 left-3.5 px-3 py-1 rounded-full bg-pink-500/90 backdrop-blur-md text-[11px] font-bold text-white shadow">
+                                <i class="fa-solid fa-heart mr-1"></i> Điểm Hẹn Lãng Mạn
+                            </span>
+                            <span class="absolute bottom-3.5 right-3.5 px-2.5 py-1 rounded-lg bg-slate-900/80 backdrop-blur-md text-xs font-semibold text-amber-300">
+                                <i class="fa-solid fa-star text-amber-400 mr-1"></i> 4.8 (11k+ review)
+                            </span>
+                        </div>
+                        <div class="p-5">
+                            <div class="flex items-center justify-between mb-1.5">
+                                <h4 class="text-xl font-bold text-white group-hover:text-pink-300 transition-colors">Cầu Tình Yêu & Cá Chép Hóa Rồng</h4>
+                                <span class="text-xs text-pink-400 font-semibold"><i class="fa-solid fa-location-dot"></i> Bờ Đông Sông Hàn</span>
+                            </div>
+                            <p class="text-slate-400 text-xs line-clamp-2 leading-relaxed mb-4">
+                                Khung cảnh đèn lồng trái tim rực đỏ về đêm và biểu tượng cá chép hóa rồng uy nghi phun nước soi bóng dòng sông Hàn.
+                            </p>
+                            <div class="flex items-center justify-between pt-3 border-t border-white/10 text-xs">
+                                <span class="text-slate-400"><i class="fa-solid fa-lock text-pink-400 mr-1"></i> Khóa tình yêu</span>
+                                <span class="text-pink-400 font-bold group-hover:underline flex items-center gap-1">Khám phá <i class="fa-solid fa-chevron-right text-[10px]"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 8: Cầu Quay Sông Hàn -->
+                <div class="w-80 sm:w-96 flex-shrink-0 mx-3 group cursor-pointer" onclick="openDetailModal('Cầu Quay Sông Hàn', 'Cây cầu quay đầu tiên tại Việt Nam do chính các kỹ sư và công nhân Việt Nam thiết kế và thi công với sự đóng góp kinh phí của nhân dân Đà Nẵng. Hàng tuần vào lúc 23h thứ Bảy và Chủ Nhật, nhịp giữa cầu sẽ quay 90 độ mở đường cho tàu thuyền qua lại.', 'https://images.unsplash.com/photo-1512100356356-de1b84283e18?auto=format&fit=crop&w=1200&q=80')">
+                    <div class="glass-dark rounded-3xl overflow-hidden border border-white/10 group-hover:border-cyan-400/60 group-hover:shadow-2xl group-hover:shadow-cyan-500/20 transition-all duration-500 transform group-hover:-translate-y-2">
+                        <div class="relative h-56 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1512100356356-de1b84283e18?auto=format&fit=crop&w=800&q=80" alt="Cầu Quay Sông Hàn" class="w-full h-full object-cover group-hover:scale-115 transition-transform duration-700">
+                            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent"></div>
+                            <span class="absolute top-3.5 left-3.5 px-3 py-1 rounded-full bg-cyan-600/90 backdrop-blur-md text-[11px] font-bold text-white shadow">
+                                <i class="fa-solid fa-rotate mr-1"></i> Cầu Quay Đầu Tiên
+                            </span>
+                            <span class="absolute bottom-3.5 right-3.5 px-2.5 py-1 rounded-lg bg-slate-900/80 backdrop-blur-md text-xs font-semibold text-amber-300">
+                                <i class="fa-solid fa-star text-amber-400 mr-1"></i> 4.8 (9k+ review)
+                            </span>
+                        </div>
+                        <div class="p-5">
+                            <div class="flex items-center justify-between mb-1.5">
+                                <h4 class="text-xl font-bold text-white group-hover:text-cyan-300 transition-colors">Cầu Quay Sông Hàn</h4>
+                                <span class="text-xs text-cyan-400 font-semibold"><i class="fa-solid fa-location-dot"></i> Trung tâm TP</span>
+                            </div>
+                            <p class="text-slate-400 text-xs line-clamp-2 leading-relaxed mb-4">
+                                Niềm tự hào về sự đổi mới của Đà Nẵng, nhịp cầu quay độc đáo lung linh ánh đèn laser soi bóng nước sông Hàn thơ mộng.
+                            </p>
+                            <div class="flex items-center justify-between pt-3 border-t border-white/10 text-xs">
+                                <span class="text-slate-400"><i class="fa-regular fa-clock text-cyan-400 mr-1"></i> Quay 23:00 Cuối tuần</span>
+                                <span class="text-cyan-400 font-bold group-hover:underline flex items-center gap-1">Khám phá <i class="fa-solid fa-chevron-right text-[10px]"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 9: Suối Khoáng Nóng Núi Thần Tài -->
+                <div class="w-80 sm:w-96 flex-shrink-0 mx-3 group cursor-pointer" onclick="openDetailModal('Công Viên Suối Khoáng Nóng Núi Thần Tài', 'Nằm tại khu bảo tồn thiên nhiên Bà Nà Núi Chúa, công viên suối khoáng nóng sở hữu nguồn nước khoáng tự nhiên giàu khoáng chất, tháp Onsen phong cách Nhật Bản, công viên nước trên núi và trải nghiệm tắm bùn khoáng thư giãn tuyệt vời.', 'https://images.unsplash.com/photo-1544644181-1484b3fdfc62?auto=format&fit=crop&w=1200&q=80')">
+                    <div class="glass-dark rounded-3xl overflow-hidden border border-white/10 group-hover:border-emerald-400/60 group-hover:shadow-2xl group-hover:shadow-emerald-500/20 transition-all duration-500 transform group-hover:-translate-y-2">
+                        <div class="relative h-56 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1544644181-1484b3fdfc62?auto=format&fit=crop&w=800&q=80" alt="Núi Thần Tài" class="w-full h-full object-cover group-hover:scale-115 transition-transform duration-700">
+                            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent"></div>
+                            <span class="absolute top-3.5 left-3.5 px-3 py-1 rounded-full bg-teal-500/90 backdrop-blur-md text-[11px] font-bold text-white shadow">
+                                <i class="fa-solid fa-hot-tub-person mr-1"></i> Khoáng Nóng Onsen
+                            </span>
+                            <span class="absolute bottom-3.5 right-3.5 px-2.5 py-1 rounded-lg bg-slate-900/80 backdrop-blur-md text-xs font-semibold text-amber-300">
+                                <i class="fa-solid fa-star text-amber-400 mr-1"></i> 4.7 (8k+ review)
+                            </span>
+                        </div>
+                        <div class="p-5">
+                            <div class="flex items-center justify-between mb-1.5">
+                                <h4 class="text-xl font-bold text-white group-hover:text-teal-300 transition-colors">Suối Khoáng Nóng Núi Thần Tài</h4>
+                                <span class="text-xs text-teal-400 font-semibold"><i class="fa-solid fa-location-dot"></i> Hòa Vang</span>
+                            </div>
+                            <p class="text-slate-400 text-xs line-clamp-2 leading-relaxed mb-4">
+                                Thiên đường nghỉ dưỡng chăm sóc sức khỏe, suối khoáng nóng ngâm mình giữa thiên nhiên xanh mát và hang động tắm bùn.
+                            </p>
+                            <div class="flex items-center justify-between pt-3 border-t border-white/10 text-xs">
+                                <span class="text-slate-400"><i class="fa-solid fa-spa text-teal-400 mr-1"></i> Trứng khoáng nóng</span>
+                                <span class="text-teal-400 font-bold group-hover:underline flex items-center gap-1">Khám phá <i class="fa-solid fa-chevron-right text-[10px]"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 10: Chợ Cồn & Thiên Đường Ẩm Thực Đà Thành -->
+                <div class="w-80 sm:w-96 flex-shrink-0 mx-3 group cursor-pointer" onclick="openDetailModal('Chợ Cồn - Thiên Đường Ẩm Thực', 'Chợ Cồn là trung tâm ẩm thực và mua sắm nhộn nhịp nhất Đà Nẵng. Tại đây, bạn sẽ bước vào mê cung ẩm thực với hàng trăm món ngon nức tiếng như bánh tráng cuốn thịt heo, bánh xèo, nem lụi, bún mắm nêm, chè sầu riêng Liên thơm lừng giá cả cực kỳ bình dân.', 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=1200&q=80')">
+                    <div class="glass-dark rounded-3xl overflow-hidden border border-white/10 group-hover:border-orange-400/60 group-hover:shadow-2xl group-hover:shadow-orange-500/20 transition-all duration-500 transform group-hover:-translate-y-2">
+                        <div class="relative h-56 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=800&q=80" alt="Chợ Cồn Ẩm Thực" class="w-full h-full object-cover group-hover:scale-115 transition-transform duration-700">
+                            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent"></div>
+                            <span class="absolute top-3.5 left-3.5 px-3 py-1 rounded-full bg-orange-500/90 backdrop-blur-md text-[11px] font-bold text-white shadow">
+                                <i class="fa-solid fa-bowl-food mr-1"></i> Thiên Đường Ăn Vặt
+                            </span>
+                            <span class="absolute bottom-3.5 right-3.5 px-2.5 py-1 rounded-lg bg-slate-900/80 backdrop-blur-md text-xs font-semibold text-amber-300">
+                                <i class="fa-solid fa-star text-amber-400 mr-1"></i> 4.9 (35k+ review)
+                            </span>
+                        </div>
+                        <div class="p-5">
+                            <div class="flex items-center justify-between mb-1.5">
+                                <h4 class="text-xl font-bold text-white group-hover:text-orange-300 transition-colors">Chợ Cồn & Chợ Đêm Helio</h4>
+                                <span class="text-xs text-orange-400 font-semibold"><i class="fa-solid fa-location-dot"></i> Hải Châu</span>
+                            </div>
+                            <p class="text-slate-400 text-xs line-clamp-2 leading-relaxed mb-4">
+                                Bùng nổ vị giác với hàng trăm món đặc sản xứ Quảng: Mì Quảng, bánh xèo, bún chả cá, hải sản nướng tươi sống.
+                            </p>
+                            <div class="flex items-center justify-between pt-3 border-t border-white/10 text-xs">
+                                <span class="text-slate-400"><i class="fa-solid fa-utensils text-orange-400 mr-1"></i> Hơn 200 gian hàng</span>
+                                <span class="text-orange-400 font-bold group-hover:underline flex items-center gap-1">Khám phá <i class="fa-solid fa-chevron-right text-[10px]"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DUPLICATE OF TRACK 2 FOR SEAMLESS LOOP -->
+                <div class="w-80 sm:w-96 flex-shrink-0 mx-3 group cursor-pointer" onclick="openDetailModal('Cầu Tình Yêu & Cá Chép Hóa Rồng', 'Cầu Tình Yêu với hàng trăm cây cột đèn trái tim đỏ rực lãng mạn bên bờ sông Hàn, nơi các cặp đôi gắn kết những ổ khóa tình yêu bền chặt. Ngay bên cạnh là tượng Cá Chép Hóa Rồng phun nước trắng xóa như biểu tượng Merlion của Đà Nẵng.', 'https://images.unsplash.com/photo-1508672019048-805b876b67e2?auto=format&fit=crop&w=1200&q=80')">
+                    <div class="glass-dark rounded-3xl overflow-hidden border border-white/10 group-hover:border-pink-400/60 group-hover:shadow-2xl group-hover:shadow-pink-500/20 transition-all duration-500 transform group-hover:-translate-y-2">
+                        <div class="relative h-56 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1508672019048-805b876b67e2?auto=format&fit=crop&w=800&q=80" alt="Cầu Tình Yêu" class="w-full h-full object-cover group-hover:scale-115 transition-transform duration-700">
+                            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent"></div>
+                            <span class="absolute top-3.5 left-3.5 px-3 py-1 rounded-full bg-pink-500/90 backdrop-blur-md text-[11px] font-bold text-white shadow">
+                                <i class="fa-solid fa-heart mr-1"></i> Điểm Hẹn Lãng Mạn
+                            </span>
+                            <span class="absolute bottom-3.5 right-3.5 px-2.5 py-1 rounded-lg bg-slate-900/80 backdrop-blur-md text-xs font-semibold text-amber-300">
+                                <i class="fa-solid fa-star text-amber-400 mr-1"></i> 4.8 (11k+ review)
+                            </span>
+                        </div>
+                        <div class="p-5">
+                            <div class="flex items-center justify-between mb-1.5">
+                                <h4 class="text-xl font-bold text-white group-hover:text-pink-300 transition-colors">Cầu Tình Yêu & Cá Chép Hóa Rồng</h4>
+                                <span class="text-xs text-pink-400 font-semibold"><i class="fa-solid fa-location-dot"></i> Bờ Đông Sông Hàn</span>
+                            </div>
+                            <p class="text-slate-400 text-xs line-clamp-2 leading-relaxed mb-4">
+                                Khung cảnh đèn lồng trái tim rực đỏ về đêm và biểu tượng cá chép hóa rồng uy nghi phun nước soi bóng dòng sông Hàn.
+                            </p>
+                            <div class="flex items-center justify-between pt-3 border-t border-white/10 text-xs">
+                                <span class="text-slate-400"><i class="fa-solid fa-lock text-pink-400 mr-1"></i> Khóa tình yêu</span>
+                                <span class="text-pink-400 font-bold group-hover:underline flex items-center gap-1">Khám phá <i class="fa-solid fa-chevron-right text-[10px]"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="w-80 sm:w-96 flex-shrink-0 mx-3 group cursor-pointer" onclick="openDetailModal('Cầu Quay Sông Hàn', 'Cây cầu quay đầu tiên tại Việt Nam do chính các kỹ sư và công nhân Việt Nam thiết kế và thi công với sự đóng góp kinh phí của nhân dân Đà Nẵng. Hàng tuần vào lúc 23h thứ Bảy và Chủ Nhật, nhịp giữa cầu sẽ quay 90 độ mở đường cho tàu thuyền qua lại.', 'https://images.unsplash.com/photo-1512100356356-de1b84283e18?auto=format&fit=crop&w=1200&q=80')">
+                    <div class="glass-dark rounded-3xl overflow-hidden border border-white/10 group-hover:border-cyan-400/60 group-hover:shadow-2xl group-hover:shadow-cyan-500/20 transition-all duration-500 transform group-hover:-translate-y-2">
+                        <div class="relative h-56 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1512100356356-de1b84283e18?auto=format&fit=crop&w=800&q=80" alt="Cầu Quay Sông Hàn" class="w-full h-full object-cover group-hover:scale-115 transition-transform duration-700">
+                            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent"></div>
+                            <span class="absolute top-3.5 left-3.5 px-3 py-1 rounded-full bg-cyan-600/90 backdrop-blur-md text-[11px] font-bold text-white shadow">
+                                <i class="fa-solid fa-rotate mr-1"></i> Cầu Quay Đầu Tiên
+                            </span>
+                            <span class="absolute bottom-3.5 right-3.5 px-2.5 py-1 rounded-lg bg-slate-900/80 backdrop-blur-md text-xs font-semibold text-amber-300">
+                                <i class="fa-solid fa-star text-amber-400 mr-1"></i> 4.8 (9k+ review)
+                            </span>
+                        </div>
+                        <div class="p-5">
+                            <div class="flex items-center justify-between mb-1.5">
+                                <h4 class="text-xl font-bold text-white group-hover:text-cyan-300 transition-colors">Cầu Quay Sông Hàn</h4>
+                                <span class="text-xs text-cyan-400 font-semibold"><i class="fa-solid fa-location-dot"></i> Trung tâm TP</span>
+                            </div>
+                            <p class="text-slate-400 text-xs line-clamp-2 leading-relaxed mb-4">
+                                Niềm tự hào về sự đổi mới của Đà Nẵng, nhịp cầu quay độc đáo lung linh ánh đèn laser soi bóng nước sông Hàn thơ mộng.
+                            </p>
+                            <div class="flex items-center justify-between pt-3 border-t border-white/10 text-xs">
+                                <span class="text-slate-400"><i class="fa-regular fa-clock text-cyan-400 mr-1"></i> Quay 23:00 Cuối tuần</span>
+                                <span class="text-cyan-400 font-bold group-hover:underline flex items-center gap-1">Khám phá <i class="fa-solid fa-chevron-right text-[10px]"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="w-80 sm:w-96 flex-shrink-0 mx-3 group cursor-pointer" onclick="openDetailModal('Công Viên Suối Khoáng Nóng Núi Thần Tài', 'Nằm tại khu bảo tồn thiên nhiên Bà Nà Núi Chúa, công viên suối khoáng nóng sở hữu nguồn nước khoáng tự nhiên giàu khoáng chất, tháp Onsen phong cách Nhật Bản, công viên nước trên núi và trải nghiệm tắm bùn khoáng thư giãn tuyệt vời.', 'https://images.unsplash.com/photo-1544644181-1484b3fdfc62?auto=format&fit=crop&w=1200&q=80')">
+                    <div class="glass-dark rounded-3xl overflow-hidden border border-white/10 group-hover:border-emerald-400/60 group-hover:shadow-2xl group-hover:shadow-emerald-500/20 transition-all duration-500 transform group-hover:-translate-y-2">
+                        <div class="relative h-56 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1544644181-1484b3fdfc62?auto=format&fit=crop&w=800&q=80" alt="Núi Thần Tài" class="w-full h-full object-cover group-hover:scale-115 transition-transform duration-700">
+                            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent"></div>
+                            <span class="absolute top-3.5 left-3.5 px-3 py-1 rounded-full bg-teal-500/90 backdrop-blur-md text-[11px] font-bold text-white shadow">
+                                <i class="fa-solid fa-hot-tub-person mr-1"></i> Khoáng Nóng Onsen
+                            </span>
+                            <span class="absolute bottom-3.5 right-3.5 px-2.5 py-1 rounded-lg bg-slate-900/80 backdrop-blur-md text-xs font-semibold text-amber-300">
+                                <i class="fa-solid fa-star text-amber-400 mr-1"></i> 4.7 (8k+ review)
+                            </span>
+                        </div>
+                        <div class="p-5">
+                            <div class="flex items-center justify-between mb-1.5">
+                                <h4 class="text-xl font-bold text-white group-hover:text-teal-300 transition-colors">Suối Khoáng Nóng Núi Thần Tài</h4>
+                                <span class="text-xs text-teal-400 font-semibold"><i class="fa-solid fa-location-dot"></i> Hòa Vang</span>
+                            </div>
+                            <p class="text-slate-400 text-xs line-clamp-2 leading-relaxed mb-4">
+                                Thiên đường nghỉ dưỡng chăm sóc sức khỏe, suối khoáng nóng ngâm mình giữa thiên nhiên xanh mát và hang động tắm bùn.
+                            </p>
+                            <div class="flex items-center justify-between pt-3 border-t border-white/10 text-xs">
+                                <span class="text-slate-400"><i class="fa-solid fa-spa text-teal-400 mr-1"></i> Trứng khoáng nóng</span>
+                                <span class="text-teal-400 font-bold group-hover:underline flex items-center gap-1">Khám phá <i class="fa-solid fa-chevron-right text-[10px]"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="w-80 sm:w-96 flex-shrink-0 mx-3 group cursor-pointer" onclick="openDetailModal('Chợ Cồn - Thiên Đường Ẩm Thực', 'Chợ Cồn là trung tâm ẩm thực và mua sắm nhộn nhịp nhất Đà Nẵng. Tại đây, bạn sẽ bước vào mê cung ẩm thực với hàng trăm món ngon nức tiếng như bánh tráng cuốn thịt heo, bánh xèo, nem lụi, bún mắm nêm, chè sầu riêng Liên thơm lừng giá cả cực kỳ bình dân.', 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=1200&q=80')">
+                    <div class="glass-dark rounded-3xl overflow-hidden border border-white/10 group-hover:border-orange-400/60 group-hover:shadow-2xl group-hover:shadow-orange-500/20 transition-all duration-500 transform group-hover:-translate-y-2">
+                        <div class="relative h-56 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=800&q=80" alt="Chợ Cồn Ẩm Thực" class="w-full h-full object-cover group-hover:scale-115 transition-transform duration-700">
+                            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent"></div>
+                            <span class="absolute top-3.5 left-3.5 px-3 py-1 rounded-full bg-orange-500/90 backdrop-blur-md text-[11px] font-bold text-white shadow">
+                                <i class="fa-solid fa-bowl-food mr-1"></i> Thiên Đường Ăn Vặt
+                            </span>
+                            <span class="absolute bottom-3.5 right-3.5 px-2.5 py-1 rounded-lg bg-slate-900/80 backdrop-blur-md text-xs font-semibold text-amber-300">
+                                <i class="fa-solid fa-star text-amber-400 mr-1"></i> 4.9 (35k+ review)
+                            </span>
+                        </div>
+                        <div class="p-5">
+                            <div class="flex items-center justify-between mb-1.5">
+                                <h4 class="text-xl font-bold text-white group-hover:text-orange-300 transition-colors">Chợ Cồn & Chợ Đêm Helio</h4>
+                                <span class="text-xs text-orange-400 font-semibold"><i class="fa-solid fa-location-dot"></i> Hải Châu</span>
+                            </div>
+                            <p class="text-slate-400 text-xs line-clamp-2 leading-relaxed mb-4">
+                                Bùng nổ vị giác với hàng trăm món đặc sản xứ Quảng: Mì Quảng, bánh xèo, bún chả cá, hải sản nướng tươi sống.
+                            </p>
+                            <div class="flex items-center justify-between pt-3 border-t border-white/10 text-xs">
+                                <span class="text-slate-400"><i class="fa-solid fa-utensils text-orange-400 mr-1"></i> Hơn 200 gian hàng</span>
+                                <span class="text-orange-400 font-bold group-hover:underline flex items-center gap-1">Khám phá <i class="fa-solid fa-chevron-right text-[10px]"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION: ĐỊA DANH NỔI BẬT -->
+    <section id="dia-danh" class="py-24 bg-slate-900 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16 reveal-element">
+                <span class="px-4 py-1.5 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 font-bold text-xs uppercase tracking-wider inline-block mb-3">
+                    <i class="fa-solid fa-gem mr-1.5"></i> Tuyệt tác thiên nhiên &amp; kiến trúc
+                </span>
+                <h2 class="text-3xl sm:text-5xl font-black text-white">Địa Danh Nổi Bật Đà Nẵng</h2>
+                <p class="text-slate-400 text-lg mt-4">12 địa danh tiêu biểu — từ núi rừng hùng vĩ, sông biển thơ mộng đến những cây cầu lừng danh thế giới.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="destinations-grid">
+
+                <!-- 1. Bán đảo Sơn Trà -->
+                <div class="dest-card nature reveal-element group glass-dark rounded-3xl overflow-hidden border border-white/10 hover:border-emerald-400/50 transition-all duration-500 flex flex-col hover:shadow-2xl hover:shadow-emerald-500/20">
+                    <div class="relative h-52 overflow-hidden bg-gradient-to-br from-emerald-900 via-slate-800 to-slate-900 flex items-center justify-center">
+                        <i class="fa-solid fa-mountain-sun text-6xl text-emerald-400/40"></i>
+                        <div class="absolute top-4 right-4 glass-dark px-3 py-1 rounded-full text-xs font-bold text-emerald-300 border border-emerald-400/30">Viên ngọc xanh</div>
+                        <div class="absolute bottom-3 left-4"><span class="bg-emerald-500/80 px-2.5 py-1 rounded-md text-xs font-bold text-white"><i class="fa-solid fa-tree mr-1"></i> Rừng nguyên sinh</span></div>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-xl font-bold text-white mb-2 group-hover:text-emerald-300 transition-colors">Bán Đảo Sơn Trà</h3>
+                            <p class="text-slate-400 text-sm leading-relaxed">Khu rừng nguyên sinh tráng lệ vươn mình ra biển, nơi sinh sống của loài Voọc Chà Vá Chân Nâu quý hiếm và ngôi đại tự Linh Ứng Bãi Bụt linh thiêng. Tượng Phật Bà cao 67m sừng sững bảo vệ ngư dân.</p>
+                        </div>
+                        <div class="flex items-center justify-between pt-4 border-t border-white/10 text-xs mt-4">
+                            <span class="text-slate-400"><i class="fa-solid fa-location-dot text-emerald-400 mr-1.5"></i> Quận Sơn Trà</span>
+                            <button onclick="openDetailModal('Bán Đảo Sơn Trà','Bán đảo Sơn Trà cách trung tâm thành phố 10km, sở hữu bãi biển hoang sơ như Bãi Bụt, Bãi Rạng, Đỉnh Bàn Cờ huyền thoại và cây Đa ngàn năm tuổi. Tượng Phật Bà Quan Âm cao 67m là điểm tựa tâm linh cho người dân biển đảo.')" class="px-4 py-2 rounded-xl bg-emerald-500/20 hover:bg-emerald-500 text-emerald-300 hover:text-white font-bold transition-all flex items-center gap-1.5">Chi tiết <i class="fa-solid fa-arrow-right text-[10px]"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. Ngũ Hành Sơn -->
+                <div class="dest-card culture reveal-element group glass-dark rounded-3xl overflow-hidden border border-white/10 hover:border-purple-400/50 transition-all duration-500 flex flex-col hover:shadow-2xl hover:shadow-purple-500/20">
+                    <div class="relative h-52 overflow-hidden bg-gradient-to-br from-purple-900 via-slate-800 to-slate-900 flex items-center justify-center">
+                        <i class="fa-solid fa-place-of-worship text-6xl text-purple-400/40"></i>
+                        <div class="absolute top-4 right-4 glass-dark px-3 py-1 rounded-full text-xs font-bold text-purple-300 border border-purple-400/30">Danh thắng Quốc gia</div>
+                        <div class="absolute bottom-3 left-4"><span class="bg-purple-500/80 px-2.5 py-1 rounded-md text-xs font-bold text-white"><i class="fa-solid fa-gem mr-1"></i> Làng đá Non Nước</span></div>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-xl font-bold text-white mb-2 group-hover:text-purple-300 transition-colors">Ngũ Hành Sơn</h3>
+                            <p class="text-slate-400 text-sm leading-relaxed">Năm ngọn núi đá vôi mang triết lý Ngũ Hành (Kim, Mộc, Thủy, Hỏa, Thổ), hệ thống hang động huyền ảo, các ngôi cổ tự linh thiêng và làng nghề điêu khắc đá Non Nước nổi tiếng.</p>
+                        </div>
+                        <div class="flex items-center justify-between pt-4 border-t border-white/10 text-xs mt-4">
+                            <span class="text-slate-400"><i class="fa-solid fa-location-dot text-purple-400 mr-1.5"></i> Quận Ngũ Hành Sơn</span>
+                            <button onclick="openDetailModal('Ngũ Hành Sơn','Ngũ Hành Sơn có động Huyền Không với ánh sáng mặt trời tự nhiên rọi xuống tượng Phật Thích Ca, chùa Tam Thai, chùa Linh Ứng cổ kính. Làng đá mỹ nghệ Non Nước nổi tiếng với những nghệ nhân tài hoa đục đẽo đá cẩm thạch thành tác phẩm nghệ thuật tinh xảo.')" class="px-4 py-2 rounded-xl bg-purple-500/20 hover:bg-purple-500 text-purple-300 hover:text-white font-bold transition-all flex items-center gap-1.5">Chi tiết <i class="fa-solid fa-arrow-right text-[10px]"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. Bà Nà Hills -->
+                <div class="dest-card nature reveal-element group glass-dark rounded-3xl overflow-hidden border border-white/10 hover:border-amber-400/50 transition-all duration-500 flex flex-col hover:shadow-2xl hover:shadow-amber-500/20">
+                    <div class="relative h-52 overflow-hidden bg-gradient-to-br from-amber-900 via-slate-800 to-slate-900 flex items-center justify-center">
+                        <i class="fa-solid fa-cable-car text-6xl text-amber-400/40"></i>
+                        <div class="absolute top-4 right-4 glass-dark px-3 py-1 rounded-full text-xs font-bold text-amber-300 border border-amber-400/30">Kỷ lục thế giới</div>
+                        <div class="absolute bottom-3 left-4"><span class="bg-amber-500/80 px-2.5 py-1 rounded-md text-xs font-bold text-white"><i class="fa-solid fa-award mr-1"></i> Cầu Vàng</span></div>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-xl font-bold text-white mb-2 group-hover:text-amber-300 transition-colors">Bà Nà Hills &amp; Cầu Vàng</h3>
+                            <p class="text-slate-400 text-sm leading-relaxed">Quần thể du lịch đỉnh núi cao 1.487m với Làng Pháp cổ kính, hầm rượu Debay trăm năm và tuyệt phẩm Cầu Vàng nâng đỡ bởi bàn tay khổng lồ nổi tiếng toàn cầu.</p>
+                        </div>
+                        <div class="flex items-center justify-between pt-4 border-t border-white/10 text-xs mt-4">
+                            <span class="text-slate-400"><i class="fa-solid fa-location-dot text-amber-400 mr-1.5"></i> Huyện Hòa Vang</span>
+                            <button onclick="openDetailModal('Bà Nà Hills &amp; Cầu Vàng','Bà Nà Hills được ví như chốn bồng lai tiên cảnh. Du khách trải nghiệm hệ thống cáp treo đạt kỷ lục thế giới, không gian lễ hội Carnival rực rỡ, hầm rượu Debay trăm năm tuổi và khí hậu 4 mùa trong một ngày.')" class="px-4 py-2 rounded-xl bg-amber-500/20 hover:bg-amber-500 text-amber-300 hover:text-white font-bold transition-all flex items-center gap-1.5">Chi tiết <i class="fa-solid fa-arrow-right text-[10px]"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4. Đèo Hải Vân -->
+                <div class="dest-card nature reveal-element group glass-dark rounded-3xl overflow-hidden border border-white/10 hover:border-cyan-400/50 transition-all duration-500 flex flex-col hover:shadow-2xl hover:shadow-cyan-500/20">
+                    <div class="relative h-52 overflow-hidden bg-gradient-to-br from-teal-900 via-slate-800 to-slate-900 flex items-center justify-center">
+                        <i class="fa-solid fa-mountain text-6xl text-teal-400/40"></i>
+                        <div class="absolute top-4 right-4 glass-dark px-3 py-1 rounded-full text-xs font-bold text-teal-300 border border-teal-400/30">Đệ nhất hùng quan</div>
+                        <div class="absolute bottom-3 left-4"><span class="bg-teal-500/80 px-2.5 py-1 rounded-md text-xs font-bold text-white"><i class="fa-solid fa-road mr-1"></i> Cung đường đẹp nhất VN</span></div>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-xl font-bold text-white mb-2 group-hover:text-teal-300 transition-colors">Đèo Hải Vân</h3>
+                            <p class="text-slate-400 text-sm leading-relaxed">Cung đường đèo huyền thoại dài 21km vắt qua dãy Trường Sơn ở độ cao 496m, được CNN bình chọn là một trong những cung đường ven biển đẹp nhất thế giới với tầm nhìn bao la.</p>
+                        </div>
+                        <div class="flex items-center justify-between pt-4 border-t border-white/10 text-xs mt-4">
+                            <span class="text-slate-400"><i class="fa-solid fa-location-dot text-teal-400 mr-1.5"></i> Ranh giới Đà Nẵng - Huế</span>
+                            <button onclick="openDetailModal('Đèo Hải Vân','Đèo Hải Vân là ranh giới khí hậu tự nhiên giữa miền Bắc và miền Nam Việt Nam. Trên đỉnh đèo có Hải Vân Quan - cửa ải phòng thủ thời Nguyễn mang biển ngạch Thiên hạ đệ nhất hùng quan, nay là điểm check-in nổi tiếng.')" class="px-4 py-2 rounded-xl bg-teal-500/20 hover:bg-teal-500 text-teal-300 hover:text-white font-bold transition-all flex items-center gap-1.5">Chi tiết <i class="fa-solid fa-arrow-right text-[10px]"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 5. Sông Hàn -->
+                <div class="dest-card nature reveal-element group glass-dark rounded-3xl overflow-hidden border border-white/10 hover:border-sky-400/50 transition-all duration-500 flex flex-col hover:shadow-2xl hover:shadow-sky-500/20">
+                    <div class="relative h-52 overflow-hidden bg-gradient-to-br from-sky-900 via-slate-800 to-slate-900 flex items-center justify-center">
+                        <i class="fa-solid fa-water text-6xl text-sky-400/40"></i>
+                        <div class="absolute top-4 right-4 glass-dark px-3 py-1 rounded-full text-xs font-bold text-sky-300 border border-sky-400/30">Trái tim thành phố</div>
+                        <div class="absolute bottom-3 left-4"><span class="bg-sky-500/80 px-2.5 py-1 rounded-md text-xs font-bold text-white"><i class="fa-solid fa-sailboat mr-1"></i> Du thuyền sông Hàn</span></div>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-xl font-bold text-white mb-2 group-hover:text-sky-300 transition-colors">Sông Hàn</h3>
+                            <p class="text-slate-400 text-sm leading-relaxed">Dòng sông thơ mộng chảy qua trung tâm thành phố, nơi phản chiếu ánh đèn lung linh của những cây cầu lừng danh. Đi du thuyền sông Hàn ban đêm là trải nghiệm không thể bỏ qua.</p>
+                        </div>
+                        <div class="flex items-center justify-between pt-4 border-t border-white/10 text-xs mt-4">
+                            <span class="text-slate-400"><i class="fa-solid fa-location-dot text-sky-400 mr-1.5"></i> Trung tâm TP. Đà Nẵng</span>
+                            <button onclick="openDetailModal('Sông Hàn','Sông Hàn dài khoảng 204km, là biểu tượng của sự phát triển đô thị Đà Nẵng. Bờ Đông và bờ Tây sông Hàn được quy hoạch thành tuyến phố đi bộ, công viên ven sông và khu du lịch sầm uất với hàng chục nhà hàng, quán cà phê đẹp nhất thành phố.')" class="px-4 py-2 rounded-xl bg-sky-500/20 hover:bg-sky-500 text-sky-300 hover:text-white font-bold transition-all flex items-center gap-1.5">Chi tiết <i class="fa-solid fa-arrow-right text-[10px]"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 6. Cầu Rồng -->
+                <div class="dest-card bridge reveal-element group glass-dark rounded-3xl overflow-hidden border border-white/10 hover:border-cyan-400/50 transition-all duration-500 flex flex-col hover:shadow-2xl hover:shadow-cyan-500/20">
+                    <div class="relative h-52 overflow-hidden bg-gradient-to-br from-cyan-900 via-slate-800 to-slate-900 flex items-center justify-center">
+                        <i class="fa-solid fa-dragon text-6xl text-cyan-400/40"></i>
+                        <div class="absolute top-4 right-4 glass-dark px-3 py-1 rounded-full text-xs font-bold text-cyan-300 border border-cyan-400/30">Biểu tượng đô thị</div>
+                        <div class="absolute bottom-3 left-4"><span class="bg-rose-500/80 px-2.5 py-1 rounded-md text-xs font-bold text-white"><i class="fa-solid fa-fire mr-1"></i> Phun lửa 21:00 T7, CN</span></div>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-xl font-bold text-white mb-2 group-hover:text-cyan-300 transition-colors">Cầu Rồng</h3>
+                            <p class="text-slate-400 text-sm leading-relaxed">Cây cầu thép mô phỏng rồng vàng thời Lý dài 666m, vươn mình bay ra biển lớn. Phun lửa và phun nước mãn nhãn mỗi tối cuối tuần, khánh thành năm 2013.</p>
+                        </div>
+                        <div class="flex items-center justify-between pt-4 border-t border-white/10 text-xs mt-4">
+                            <span class="text-slate-400"><i class="fa-solid fa-location-dot text-cyan-400 mr-1.5"></i> Bờ sông Hàn</span>
+                            <button onclick="openDetailModal('Cầu Rồng Đà Nẵng','Cầu Rồng kết nối sân bay Đà Nẵng ra bãi biển Mỹ Khê. Cầu dài 666m, rộng 37,5m, là biểu tượng của sự vươn lên mạnh mẽ. Mỗi tối thứ 7, chủ nhật cầu phun lửa 18 đợt và phun nước 3 đợt thu hút hàng vạn người dân và du khách.')" class="px-4 py-2 rounded-xl bg-cyan-500/20 hover:bg-cyan-500 text-cyan-300 hover:text-white font-bold transition-all flex items-center gap-1.5">Chi tiết <i class="fa-solid fa-arrow-right text-[10px]"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 7. Cầu Sông Hàn -->
+                <div class="dest-card bridge reveal-element group glass-dark rounded-3xl overflow-hidden border border-white/10 hover:border-indigo-400/50 transition-all duration-500 flex flex-col hover:shadow-2xl hover:shadow-indigo-500/20">
+                    <div class="relative h-52 overflow-hidden bg-gradient-to-br from-indigo-900 via-slate-800 to-slate-900 flex items-center justify-center">
+                        <i class="fa-solid fa-bridge text-6xl text-indigo-400/40"></i>
+                        <div class="absolute top-4 right-4 glass-dark px-3 py-1 rounded-full text-xs font-bold text-indigo-300 border border-indigo-400/30">Cầu quay lịch sử</div>
+                        <div class="absolute bottom-3 left-4"><span class="bg-indigo-500/80 px-2.5 py-1 rounded-md text-xs font-bold text-white"><i class="fa-solid fa-rotate mr-1"></i> Quay mở mỗi đêm</span></div>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-xl font-bold text-white mb-2 group-hover:text-indigo-300 transition-colors">Cầu Sông Hàn</h3>
+                            <p class="text-slate-400 text-sm leading-relaxed">Cây cầu quay đầu tiên và duy nhất tại Việt Nam do chính người dân Đà Nẵng góp tiền xây dựng năm 2000. Cầu xoay 90 độ mỗi đêm để cho thuyền bè qua lại, là niềm tự hào của thành phố.</p>
+                        </div>
+                        <div class="flex items-center justify-between pt-4 border-t border-white/10 text-xs mt-4">
+                            <span class="text-slate-400"><i class="fa-solid fa-location-dot text-indigo-400 mr-1.5"></i> Trung tâm Đà Nẵng</span>
+                            <button onclick="openDetailModal('Cầu Sông Hàn','Cầu Sông Hàn là niềm tự hào của người Đà Nẵng, xây dựng từ nguồn vốn đóng góp của nhân dân. Cầu dài 487,7m, rộng 12,9m, có khả năng quay 90 độ trong khoảng 45 phút để nhường đường cho tàu thuyền. Hoàn thành năm 2000, là cầu quay đầu tiên của Việt Nam.')" class="px-4 py-2 rounded-xl bg-indigo-500/20 hover:bg-indigo-500 text-indigo-300 hover:text-white font-bold transition-all flex items-center gap-1.5">Chi tiết <i class="fa-solid fa-arrow-right text-[10px]"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 8. Bãi biển Mỹ Khê -->
+                <div class="dest-card nature reveal-element group glass-dark rounded-3xl overflow-hidden border border-white/10 hover:border-cyan-400/50 transition-all duration-500 flex flex-col hover:shadow-2xl hover:shadow-cyan-500/20">
+                    <div class="relative h-52 overflow-hidden bg-gradient-to-br from-cyan-900 via-blue-900 to-slate-900 flex items-center justify-center">
+                        <i class="fa-solid fa-umbrella-beach text-6xl text-cyan-400/40"></i>
+                        <div class="absolute top-4 right-4 glass-dark px-3 py-1 rounded-full text-xs font-bold text-cyan-300 border border-cyan-400/30">Forbes bình chọn</div>
+                        <div class="absolute bottom-3 left-4"><span class="bg-cyan-500/80 px-2.5 py-1 rounded-md text-xs font-bold text-white"><i class="fa-solid fa-water mr-1"></i> Biển xanh cát trắng</span></div>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-xl font-bold text-white mb-2 group-hover:text-cyan-300 transition-colors">Bãi Biển Mỹ Khê</h3>
+                            <p class="text-slate-400 text-sm leading-relaxed">Bãi biển nổi tiếng thế giới với cát trắng mịn màng trải dài 20km, sóng êm, nước ấm quanh năm. Được Forbes bình chọn là 1 trong 6 bãi biển quyến rũ nhất hành tinh.</p>
+                        </div>
+                        <div class="flex items-center justify-between pt-4 border-t border-white/10 text-xs mt-4">
+                            <span class="text-slate-400"><i class="fa-solid fa-location-dot text-cyan-400 mr-1.5"></i> Quận Sơn Trà / Ngũ Hành Sơn</span>
+                            <button onclick="openDetailModal('Bãi Biển Mỹ Khê','Bãi biển Mỹ Khê trải dài hơn 20km với bãi cát trắng phẳng mịn, nước biển trong xanh và ấm áp. Đây là địa điểm lý tưởng cho tắm biển, lướt ván, chèo SUP, và ngắm bình minh tuyệt đẹp. Hàng loạt resort 5 sao đẳng cấp nằm dọc bờ biển.')" class="px-4 py-2 rounded-xl bg-cyan-500/20 hover:bg-cyan-500 text-cyan-300 hover:text-white font-bold transition-all flex items-center gap-1.5">Chi tiết <i class="fa-solid fa-arrow-right text-[10px]"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 9. Vịnh Đà Nẵng -->
+                <div class="dest-card nature reveal-element group glass-dark rounded-3xl overflow-hidden border border-white/10 hover:border-blue-400/50 transition-all duration-500 flex flex-col hover:shadow-2xl hover:shadow-blue-500/20">
+                    <div class="relative h-52 overflow-hidden bg-gradient-to-br from-blue-900 via-slate-800 to-slate-900 flex items-center justify-center">
+                        <i class="fa-solid fa-ship text-6xl text-blue-400/40"></i>
+                        <div class="absolute top-4 right-4 glass-dark px-3 py-1 rounded-full text-xs font-bold text-blue-300 border border-blue-400/30">Cửa ngõ biển Đông</div>
+                        <div class="absolute bottom-3 left-4"><span class="bg-blue-500/80 px-2.5 py-1 rounded-md text-xs font-bold text-white"><i class="fa-solid fa-anchor mr-1"></i> Cảng Tiên Sa</span></div>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-xl font-bold text-white mb-2 group-hover:text-blue-300 transition-colors">Vịnh Đà Nẵng</h3>
+                            <p class="text-slate-400 text-sm leading-relaxed">Vịnh biển rộng lớn và thơ mộng ôm trọn thành phố, là cảng biển nước sâu thiên nhiên quan trọng bậc nhất miền Trung. Nơi có cảng Tiên Sa đón hàng chục tàu du lịch quốc tế mỗi năm.</p>
+                        </div>
+                        <div class="flex items-center justify-between pt-4 border-t border-white/10 text-xs mt-4">
+                            <span class="text-slate-400"><i class="fa-solid fa-location-dot text-blue-400 mr-1.5"></i> Bờ biển Đà Nẵng</span>
+                            <button onclick="openDetailModal('Vịnh Đà Nẵng','Vịnh Đà Nẵng là một trong những vịnh đẹp nhất Việt Nam, được bao bọc bởi dãy núi Hải Vân ở phía Bắc và bán đảo Sơn Trà ở phía Đông. Cảng Tiên Sa nằm trong vịnh, là một trong những cảng biển hiện đại và quan trọng nhất miền Trung Việt Nam.')" class="px-4 py-2 rounded-xl bg-blue-500/20 hover:bg-blue-500 text-blue-300 hover:text-white font-bold transition-all flex items-center gap-1.5">Chi tiết <i class="fa-solid fa-arrow-right text-[10px]"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 10. Cù Lao Chàm -->
+                <div class="dest-card nature reveal-element group glass-dark rounded-3xl overflow-hidden border border-white/10 hover:border-emerald-400/50 transition-all duration-500 flex flex-col hover:shadow-2xl hover:shadow-emerald-500/20">
+                    <div class="relative h-52 overflow-hidden bg-gradient-to-br from-emerald-900 via-teal-900 to-slate-900 flex items-center justify-center">
+                        <i class="fa-solid fa-island-tropical text-6xl text-emerald-400/40"></i>
+                        <div class="absolute top-4 right-4 glass-dark px-3 py-1 rounded-full text-xs font-bold text-emerald-300 border border-emerald-400/30">Di sản thế giới UNESCO</div>
+                        <div class="absolute bottom-3 left-4"><span class="bg-emerald-500/80 px-2.5 py-1 rounded-md text-xs font-bold text-white"><i class="fa-solid fa-fish mr-1"></i> Rạn san hô đa dạng</span></div>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-xl font-bold text-white mb-2 group-hover:text-emerald-300 transition-colors">Cù Lao Chàm</h3>
+                            <p class="text-slate-400 text-sm leading-relaxed">Quần đảo được UNESCO công nhận là khu dự trữ sinh quyển thế giới với hệ sinh thái rạn san hô phong phú. Nổi tiếng với nghề nuôi yến và lặn biển khám phá đại dương.</p>
+                        </div>
+                        <div class="flex items-center justify-between pt-4 border-t border-white/10 text-xs mt-4">
+                            <span class="text-slate-400"><i class="fa-solid fa-location-dot text-emerald-400 mr-1.5"></i> Cách Đà Nẵng ~18km</span>
+                            <button onclick="openDetailModal('Cù Lao Chàm','Cù Lao Chàm gồm 8 hòn đảo lớn nhỏ thuộc TP. Hội An, cách bờ khoảng 15-18km. Đây là khu dự trữ sinh quyển thế giới với hơn 165 loài san hô, 202 loài cá rạn san hô. Du khách từ Đà Nẵng thường đến đây bằng thuyền cao tốc để lặn biển và thưởng thức hải sản tươi ngon.')" class="px-4 py-2 rounded-xl bg-emerald-500/20 hover:bg-emerald-500 text-emerald-300 hover:text-white font-bold transition-all flex items-center gap-1.5">Chi tiết <i class="fa-solid fa-arrow-right text-[10px]"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 11. Hồ Hòa Trung -->
+                <div class="dest-card nature reveal-element group glass-dark rounded-3xl overflow-hidden border border-white/10 hover:border-teal-400/50 transition-all duration-500 flex flex-col hover:shadow-2xl hover:shadow-teal-500/20">
+                    <div class="relative h-52 overflow-hidden bg-gradient-to-br from-teal-900 via-slate-800 to-slate-900 flex items-center justify-center">
+                        <i class="fa-solid fa-water-ladder text-6xl text-teal-400/40"></i>
+                        <div class="absolute top-4 right-4 glass-dark px-3 py-1 rounded-full text-xs font-bold text-teal-300 border border-teal-400/30">Đảo giữa lòng hồ</div>
+                        <div class="absolute bottom-3 left-4"><span class="bg-teal-500/80 px-2.5 py-1 rounded-md text-xs font-bold text-white"><i class="fa-solid fa-leaf mr-1"></i> Sinh thái trong lành</span></div>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-xl font-bold text-white mb-2 group-hover:text-teal-300 transition-colors">Hồ Hòa Trung</h3>
+                            <p class="text-slate-400 text-sm leading-relaxed">Viên ngọc xanh ẩn mình giữa núi đồi Hòa Vang, mặt hồ phẳng lặng phản chiếu mây trời và bạch đàn xanh mướt. Điểm cắm trại, dã ngoại và chèo thuyền kayak yêu thích của người Đà Nẵng.</p>
+                        </div>
+                        <div class="flex items-center justify-between pt-4 border-t border-white/10 text-xs mt-4">
+                            <span class="text-slate-400"><i class="fa-solid fa-location-dot text-teal-400 mr-1.5"></i> Huyện Hòa Vang</span>
+                            <button onclick="openDetailModal('Hồ Hòa Trung','Hồ Hòa Trung thuộc xã Hòa Trung, huyện Hòa Vang, là hồ nước ngọt tự nhiên đẹp bậc nhất Đà Nẵng. Xung quanh hồ là rừng bạch đàn và đồi thông xanh mát. Hồ có diện tích mặt nước rộng, thích hợp cho các hoạt động kayak, cắm trại và thư giãn cuối tuần.')" class="px-4 py-2 rounded-xl bg-teal-500/20 hover:bg-teal-500 text-teal-300 hover:text-white font-bold transition-all flex items-center gap-1.5">Chi tiết <i class="fa-solid fa-arrow-right text-[10px]"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 12. Suối Hoa -->
+                <div class="dest-card nature reveal-element group glass-dark rounded-3xl overflow-hidden border border-white/10 hover:border-pink-400/50 transition-all duration-500 flex flex-col hover:shadow-2xl hover:shadow-pink-500/20">
+                    <div class="relative h-52 overflow-hidden bg-gradient-to-br from-pink-900 via-slate-800 to-slate-900 flex items-center justify-center">
+                        <i class="fa-solid fa-droplet text-6xl text-pink-400/40"></i>
+                        <div class="absolute top-4 right-4 glass-dark px-3 py-1 rounded-full text-xs font-bold text-pink-300 border border-pink-400/30">Thác nước nên thơ</div>
+                        <div class="absolute bottom-3 left-4"><span class="bg-pink-500/80 px-2.5 py-1 rounded-md text-xs font-bold text-white"><i class="fa-solid fa-spa mr-1"></i> Tắm suối tự nhiên</span></div>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-xl font-bold text-white mb-2 group-hover:text-pink-300 transition-colors">Suối Hoa</h3>
+                            <p class="text-slate-400 text-sm leading-relaxed">Điểm du lịch sinh thái ẩn mình giữa rừng núi Hòa Vang với dòng suối trong mát, thác nước tự nhiên và không khí trong lành. Lý tưởng cho những chuyến picnic và tắm suối cuối tuần.</p>
+                        </div>
+                        <div class="flex items-center justify-between pt-4 border-t border-white/10 text-xs mt-4">
+                            <span class="text-slate-400"><i class="fa-solid fa-location-dot text-pink-400 mr-1.5"></i> Huyện Hòa Vang</span>
+                            <button onclick="openDetailModal('Suối Hoa','Suối Hoa nằm trong khu du lịch sinh thái tại huyện Hòa Vang, Đà Nẵng. Dòng suối uốn lượn giữa những tảng đá lớn và rừng cây nhiệt đới xanh mát. Đây là điểm đến yêu thích của các gia đình và nhóm bạn trẻ muốn tìm kiếm sự tĩnh lặng gần thiên nhiên.')" class="px-4 py-2 rounded-xl bg-pink-500/20 hover:bg-pink-500 text-pink-300 hover:text-white font-bold transition-all flex items-center gap-1.5">Chi tiết <i class="fa-solid fa-arrow-right text-[10px]"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="dia-danh" class="py-24 bg-slate-900 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16 reveal-element">
+                <span class="px-4 py-1.5 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 font-bold text-xs uppercase tracking-wider inline-block mb-3">
+                    <i class="fa-solid fa-gem mr-1.5"></i> Tuyệt tác kiến trúc & Thiên nhiên
+                </span>
+                <h2 class="text-3xl sm:text-5xl font-black text-white">Địa Danh Nổi Bật Đà Nẵng</h2>
+                <p class="text-slate-400 text-lg mt-4">Khám phá chi tiết những công trình biểu tượng và danh lam thắng cảnh làm say lòng hàng triệu du khách muôn phương.</p>
+            </div>
+
+            <!-- Category Filter Tabs -->
+            <div class="flex flex-wrap justify-center gap-2 mb-12 reveal-element">
+                <button onclick="filterDestinations('all')" class="dest-tab-btn active px-5 py-2.5 rounded-xl bg-cyan-500 text-white text-sm font-semibold shadow-lg shadow-cyan-500/30 transition-all">Tất cả</button>
+                <button onclick="filterDestinations('bridge')" class="dest-tab-btn px-5 py-2.5 rounded-xl glass-dark text-slate-300 hover:text-white text-sm font-semibold border border-white/10 hover:border-cyan-500/30 transition-all">Cây cầu huyền thoại</button>
+                <button onclick="filterDestinations('nature')" class="dest-tab-btn px-5 py-2.5 rounded-xl glass-dark text-slate-300 hover:text-white text-sm font-semibold border border-white/10 hover:border-cyan-500/30 transition-all">Thiên nhiên & Biển đảo</button>
+                <button onclick="filterDestinations('culture')" class="dest-tab-btn px-5 py-2.5 rounded-xl glass-dark text-slate-300 hover:text-white text-sm font-semibold border border-white/10 hover:border-cyan-500/30 transition-all">Tâm linh & Nghỉ dưỡng</button>
+            </div>
+
+            <!-- Attractions Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="destinations-grid">
+                <!-- Card 1: Cầu Rồng -->
+                <div class="dest-card bridge reveal-element group glass-dark rounded-3xl overflow-hidden border border-white/10 hover:border-cyan-400/50 transition-all duration-500 flex flex-col justify-between hover:shadow-2xl hover:shadow-cyan-500/20">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?auto=format&fit=crop&w=800&q=80" alt="Cầu Rồng" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent"></div>
+                        <div class="absolute top-4 right-4 glass-dark px-3 py-1 rounded-full text-xs font-bold text-cyan-300 border border-cyan-400/30">
+                            Biểu tượng đô thị
+                        </div>
+                        <div class="absolute bottom-3 left-4 right-4 flex justify-between items-center text-xs text-white">
+                            <span class="bg-rose-500/80 px-2.5 py-1 rounded-md font-bold"><i class="fa-solid fa-fire mr-1"></i> Phun lửa 21:00 T7, CN</span>
+                            <span class="text-amber-300 font-bold"><i class="fa-solid fa-star"></i> 4.9</span>
+                        </div>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-2xl font-bold text-white mb-2 group-hover:text-cyan-300 transition-colors">Cầu Rồng Đà Nẵng</h3>
+                            <p class="text-slate-400 text-sm leading-relaxed mb-6">
+                                Cây cầu thép độc đáo mô phỏng rồng vàng thời Lý dài 666m vươn mình bay ra biển lớn. Cầu có khả năng phun lửa 18 đợt và phun nước 3 đợt vô cùng mãn nhãn vào tối cuối tuần.
+                            </p>
+                        </div>
+                        <div class="flex items-center justify-between pt-4 border-t border-white/10 text-xs">
+                            <span class="text-slate-400"><i class="fa-solid fa-location-dot text-cyan-400 mr-1.5"></i> Bờ sông Hàn</span>
+                            <button onclick="openDetailModal('Cầu Rồng Đà Nẵng', 'Cầu Rồng được khánh thành năm 2013, kết nối trực tiếp sân bay quốc tế Đà Nẵng ra bãi biển Mỹ Khê. Đây không chỉ là trục giao thông huyết mạch mà còn là công trình nghệ thuật mang tính biểu tượng, thu hút hàng vạn du khách và người dân đổ về chiêm ngưỡng mỗi dịp cuối tuần.', 'https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?auto=format&fit=crop&w=1200&q=80')" class="px-4 py-2 rounded-xl bg-cyan-500/20 hover:bg-cyan-500 text-cyan-300 hover:text-white font-bold transition-all flex items-center gap-1.5">Xem chi tiết <i class="fa-solid fa-arrow-right text-[10px]"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2: Bà Nà Hills -->
+                <div class="dest-card nature reveal-element group glass-dark rounded-3xl overflow-hidden border border-white/10 hover:border-cyan-400/50 transition-all duration-500 flex flex-col justify-between hover:shadow-2xl hover:shadow-cyan-500/20">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1569154941061-e231b4725ef1?auto=format&fit=crop&w=800&q=80" alt="Bà Nà Hills" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent"></div>
+                        <div class="absolute top-4 right-4 glass-dark px-3 py-1 rounded-full text-xs font-bold text-amber-300 border border-amber-400/30">
+                            Khu nghỉ dưỡng đẳng cấp
+                        </div>
+                        <div class="absolute bottom-3 left-4 right-4 flex justify-between items-center text-xs text-white">
+                            <span class="bg-amber-500/80 px-2.5 py-1 rounded-md font-bold"><i class="fa-solid fa-award mr-1"></i> Cầu Vàng Thế Giới</span>
+                            <span class="text-amber-300 font-bold"><i class="fa-solid fa-star"></i> 5.0</span>
+                        </div>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-2xl font-bold text-white mb-2 group-hover:text-cyan-300 transition-colors">Bà Nà Hills & Cầu Vàng</h3>
+                            <p class="text-slate-400 text-sm leading-relaxed mb-6">
+                                Quần thể du lịch đỉnh núi cao gần 1.500m so với mực nước biển. Nổi bật với Làng Pháp cổ kính, vườn hoa Le Jardin D'Amour và tuyệt phẩm Cầu Vàng nâng đỡ bởi bàn tay khổng lồ.
+                            </p>
+                        </div>
+                        <div class="flex items-center justify-between pt-4 border-t border-white/10 text-xs">
+                            <span class="text-slate-400"><i class="fa-solid fa-location-dot text-cyan-400 mr-1.5"></i> Huyện Hòa Vang</span>
+                            <button onclick="openDetailModal('Bà Nà Hills & Cầu Vàng', 'Bà Nà Hills được ví như chốn bồng lai tiên cảnh giữa trần gian. Du khách sẽ trải nghiệm hệ thống cáp treo đạt kỷ lục thế giới, không gian lễ hội Carnival rực rỡ, hầm rượu Debay trăm năm tuổi và khí hậu 4 mùa luân chuyển trong một ngày.', 'https://images.unsplash.com/photo-1569154941061-e231b4725ef1?auto=format&fit=crop&w=1200&q=80')" class="px-4 py-2 rounded-xl bg-cyan-500/20 hover:bg-cyan-500 text-cyan-300 hover:text-white font-bold transition-all flex items-center gap-1.5">Xem chi tiết <i class="fa-solid fa-arrow-right text-[10px]"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3: Ngũ Hành Sơn -->
+                <div class="dest-card culture reveal-element group glass-dark rounded-3xl overflow-hidden border border-white/10 hover:border-cyan-400/50 transition-all duration-500 flex flex-col justify-between hover:shadow-2xl hover:shadow-cyan-500/20">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=800&q=80" alt="Ngũ Hành Sơn" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent"></div>
+                        <div class="absolute top-4 right-4 glass-dark px-3 py-1 rounded-full text-xs font-bold text-purple-300 border border-purple-400/30">
+                            Danh thắng quốc gia đặc biệt
+                        </div>
+                        <div class="absolute bottom-3 left-4 right-4 flex justify-between items-center text-xs text-white">
+                            <span class="bg-purple-500/80 px-2.5 py-1 rounded-md font-bold"><i class="fa-solid fa-place-of-worship mr-1"></i> Động Huyền Không</span>
+                            <span class="text-amber-300 font-bold"><i class="fa-solid fa-star"></i> 4.8</span>
+                        </div>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-2xl font-bold text-white mb-2 group-hover:text-cyan-300 transition-colors">Danh Thắng Ngũ Hành Sơn</h3>
+                            <p class="text-slate-400 text-sm leading-relaxed mb-6">
+                                Năm ngọn núi đá vôi mang triết lý Ngũ Hành (Kim, Mộc, Thủy, Hỏa, Thổ) sở hữu hệ thống hang động tự nhiên huyền ảo, các ngôi cổ tự linh thiêng và làng nghề đá Non Nước trứ danh.
+                            </p>
+                        </div>
+                        <div class="flex items-center justify-between pt-4 border-t border-white/10 text-xs">
+                            <span class="text-slate-400"><i class="fa-solid fa-location-dot text-cyan-400 mr-1.5"></i> Quận Ngũ Hành Sơn</span>
+                            <button onclick="openDetailModal('Danh Thắng Ngũ Hành Sơn', 'Ngũ Hành Sơn mang vẻ đẹp kỳ vĩ của tạo hóa kết hợp với không gian văn hóa tâm linh lâu đời. Nơi đây có động Huyền Không với ánh sáng mặt trời tự nhiên rọi từ đỉnh động xuống tượng Phật Thích Ca, chùa Tam Thai, chùa Linh Ứng cổ kính.', 'https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=1200&q=80')" class="px-4 py-2 rounded-xl bg-cyan-500/20 hover:bg-cyan-500 text-cyan-300 hover:text-white font-bold transition-all flex items-center gap-1.5">Xem chi tiết <i class="fa-solid fa-arrow-right text-[10px]"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 4: Biển Mỹ Khê -->
+                <div class="dest-card nature reveal-element group glass-dark rounded-3xl overflow-hidden border border-white/10 hover:border-cyan-400/50 transition-all duration-500 flex flex-col justify-between hover:shadow-2xl hover:shadow-cyan-500/20">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80" alt="Biển Mỹ Khê" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent"></div>
+                        <div class="absolute top-4 right-4 glass-dark px-3 py-1 rounded-full text-xs font-bold text-cyan-300 border border-cyan-400/30">
+                            Bãi biển Forbes bình chọn
+                        </div>
+                        <div class="absolute bottom-3 left-4 right-4 flex justify-between items-center text-xs text-white">
+                            <span class="bg-cyan-500/80 px-2.5 py-1 rounded-md font-bold"><i class="fa-solid fa-water mr-1"></i> Biển xanh cát trắng</span>
+                            <span class="text-amber-300 font-bold"><i class="fa-solid fa-star"></i> 4.9</span>
+                        </div>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-2xl font-bold text-white mb-2 group-hover:text-cyan-300 transition-colors">Bãi Biển Mỹ Khê</h3>
+                            <p class="text-slate-400 text-sm leading-relaxed mb-6">
+                                Bãi biển nổi tiếng thế giới với bãi cát trắng phau mịn màng, sóng êm, nước ấm áp quanh năm cùng hàng dừa xanh mát bao bọc dãy khách sạn và resort sang trọng.
+                            </p>
+                        </div>
+                        <div class="flex items-center justify-between pt-4 border-t border-white/10 text-xs">
+                            <span class="text-slate-400"><i class="fa-solid fa-location-dot text-cyan-400 mr-1.5"></i> Quận Sơn Trà / Ngũ Hành Sơn</span>
+                            <button onclick="openDetailModal('Bãi Biển Mỹ Khê', 'Mỹ Khê được bình chọn là 1 trong 6 bãi biển đẹp nhất hành tinh nhờ sự hài hòa giữa vẻ đẹp tự nhiên hoang sơ và tiện ích đô thị hiện đại. Nơi đây là điểm đến lý tưởng cho các hoạt động tắm biển, chèo SUP, lướt ván cano và ngắm bình minh tuyệt đẹp.', 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80')" class="px-4 py-2 rounded-xl bg-cyan-500/20 hover:bg-cyan-500 text-cyan-300 hover:text-white font-bold transition-all flex items-center gap-1.5">Xem chi tiết <i class="fa-solid fa-arrow-right text-[10px]"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 5: Bán đảo Sơn Trà -->
+                <div class="dest-card nature reveal-element group glass-dark rounded-3xl overflow-hidden border border-white/10 hover:border-cyan-400/50 transition-all duration-500 flex flex-col justify-between hover:shadow-2xl hover:shadow-cyan-500/20">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1583417319070-4a69db38a482?auto=format&fit=crop&w=800&q=80" alt="Bán đảo Sơn Trà" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent"></div>
+                        <div class="absolute top-4 right-4 glass-dark px-3 py-1 rounded-full text-xs font-bold text-emerald-300 border border-emerald-400/30">
+                            Viên ngọc xanh Đà Nẵng
+                        </div>
+                        <div class="absolute bottom-3 left-4 right-4 flex justify-between items-center text-xs text-white">
+                            <span class="bg-emerald-500/80 px-2.5 py-1 rounded-md font-bold"><i class="fa-solid fa-tree mr-1"></i> Tượng Phật Bà 67m</span>
+                            <span class="text-amber-300 font-bold"><i class="fa-solid fa-star"></i> 4.9</span>
+                        </div>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-2xl font-bold text-white mb-2 group-hover:text-cyan-300 transition-colors">Bán Đảo Sơn Trà & Chùa Linh Ứng</h3>
+                            <p class="text-slate-400 text-sm leading-relaxed mb-6">
+                                Khu rừng nguyên sinh tráng lệ vươn mình ra biển, nơi sinh sống của loài Voọc Chà Vá Chân Nâu quý hiếm và ngôi đại tự Linh Ứng Bãi Bụt linh thiêng bậc nhất miền Trung.
+                            </p>
+                        </div>
+                        <div class="flex items-center justify-between pt-4 border-t border-white/10 text-xs">
+                            <span class="text-slate-400"><i class="fa-solid fa-location-dot text-cyan-400 mr-1.5"></i> Bán đảo Sơn Trà</span>
+                            <button onclick="openDetailModal('Bán Đảo Sơn Trà', 'Bán đảo Sơn Trà cách trung tâm thành phố chỉ 10km, sở hữu những bãi biển hoang sơ như Bãi Bụt, Bãi Rạng, Đỉnh Bàn Cờ huyền thoại và cây Đa ngàn năm tuổi. Tượng Phật Bà Quan Âm cao 67m uy nghiêm là điểm tựa tâm linh cho người dân biển đảo.', 'https://images.unsplash.com/photo-1583417319070-4a69db38a482?auto=format&fit=crop&w=1200&q=80')" class="px-4 py-2 rounded-xl bg-cyan-500/20 hover:bg-cyan-500 text-cyan-300 hover:text-white font-bold transition-all flex items-center gap-1.5">Xem chi tiết <i class="fa-solid fa-arrow-right text-[10px]"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 6: Cầu Sông Hàn & Cầu Thuận Phước -->
+                <div class="dest-card bridge reveal-element group glass-dark rounded-3xl overflow-hidden border border-white/10 hover:border-cyan-400/50 transition-all duration-500 flex flex-col justify-between hover:shadow-2xl hover:shadow-cyan-500/20">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1512100356356-de1b84283e18?auto=format&fit=crop&w=800&q=80" alt="Cầu Quay Sông Hàn" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent"></div>
+                        <div class="absolute top-4 right-4 glass-dark px-3 py-1 rounded-full text-xs font-bold text-sky-300 border border-sky-400/30">
+                            Thành phố của những cây cầu
+                        </div>
+                        <div class="absolute bottom-3 left-4 right-4 flex justify-between items-center text-xs text-white">
+                            <span class="bg-sky-500/80 px-2.5 py-1 rounded-md font-bold"><i class="fa-solid fa-bridge mr-1"></i> Cầu Quay Lịch Sử</span>
+                            <span class="text-amber-300 font-bold"><i class="fa-solid fa-star"></i> 4.8</span>
+                        </div>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-2xl font-bold text-white mb-2 group-hover:text-cyan-300 transition-colors">Cầu Quay Sông Hàn & Cầu Thuận Phước</h3>
+                            <p class="text-slate-400 text-sm leading-relaxed mb-6">
+                                Những công trình kiến trúc vượt sông biểu tượng. Cầu quay mở lối cho tàu bè trong đêm và cầu treo dây võng Thuận Phước sừng sững tại cửa biển nơi sông Hàn đổ ra biển Đông.
+                            </p>
+                        </div>
+                        <div class="flex items-center justify-between pt-4 border-t border-white/10 text-xs">
+                            <span class="text-slate-400"><i class="fa-solid fa-location-dot text-cyan-400 mr-1.5"></i> Trục Sông Hàn</span>
+                            <button onclick="openDetailModal('Những Cây Cầu Biểu Tượng Đà Nẵng', 'Đà Nẵng được mệnh danh là thành phố của những cây cầu với hàng loạt kiệt tác kiến trúc độc đáo: Cầu Rồng, Cầu Quay Sông Hàn, Cầu Trần Thị Lý (hình cánh buồm), Cầu Thuận Phước (cầu treo dài nhất Việt Nam), Cầu Nguyễn Văn Trỗi (cầu chứng nhân lịch sử).', 'https://images.unsplash.com/photo-1512100356356-de1b84283e18?auto=format&fit=crop&w=1200&q=80')" class="px-4 py-2 rounded-xl bg-cyan-500/20 hover:bg-cyan-500 text-cyan-300 hover:text-white font-bold transition-all flex items-center gap-1.5">Xem chi tiết <i class="fa-solid fa-arrow-right text-[10px]"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION: DI TÍCH LỊCH SỬ HÀO HÙNG -->
+    <section id="di-tich" class="py-24 bg-slate-950 relative border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16 reveal-element">
+                <span class="px-4 py-1.5 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20 font-bold text-xs uppercase tracking-wider inline-block mb-3">
+                    <i class="fa-solid fa-monument mr-1.5"></i> Dấu ấn thời gian
+                </span>
+                <h2 class="text-3xl sm:text-5xl font-black text-white">Di Tích Lịch Sử Đà Nẵng</h2>
+                <p class="text-slate-400 text-lg mt-4">Tìm hiểu về những trang sử oai hùng, những pháo đài và bảo tàng lưu giữ tinh hoa di sản ngàn năm.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Di tích 1: Thành Điện Hải -->
+                <div class="reveal-element glass-dark rounded-3xl p-8 border border-white/10 hover:border-amber-400/40 hover:shadow-2xl transition-all flex flex-col justify-between group">
+                    <div>
+                        <div class="w-14 h-14 rounded-2xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-2xl font-bold mb-6 group-hover:scale-110 group-hover:rotate-6 transition-all">
+                            <i class="fa-solid fa-shield-halved"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-3 group-hover:text-amber-300 transition-colors">Thành Điện Hải</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-6">
+                            Đồn lũy quân sự trọng yếu thời Nguyễn, nơi tướng quân Nguyễn Tri Phương chỉ huy quân dân đánh trả cuộc tấn công đầu tiên của liên quân Pháp - Tây Ban Nha năm 1858.
+                        </p>
+                    </div>
+                    <div class="pt-6 border-t border-white/10 flex items-center justify-between">
+                        <span class="text-xs text-amber-400/80 font-medium"><i class="fa-solid fa-landmark mr-1"></i> Di tích Quốc gia đặc biệt</span>
+                        <button onclick="openDetailModal('Thành Điện Hải', 'Thành Điện Hải được xây dựng năm 1813 dưới thời vua Gia Long và nâng cấp kiên cố năm 1823 bằng gạch theo kiến trúc Vauban phương Tây. Nơi đây từng đặt 30 khẩu đại bác bảo vệ cửa biển Đà Nẵng, ghi dấu ý chí kiên cường chống giặc ngoại xâm của dân tộc.')" class="text-cyan-400 hover:text-cyan-300 font-bold text-xs flex items-center gap-1">Tìm hiểu <i class="fa-solid fa-chevron-right text-[10px]"></i></button>
+                    </div>
+                </div>
+
+                <!-- Di tích 2: Bảo tàng Điêu khắc Chăm -->
+                <div class="reveal-element glass-dark rounded-3xl p-8 border border-white/10 hover:border-cyan-400/40 hover:shadow-2xl transition-all flex flex-col justify-between group">
+                    <div>
+                        <div class="w-14 h-14 rounded-2xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center text-2xl font-bold mb-6 group-hover:scale-110 group-hover:rotate-6 transition-all">
+                            <i class="fa-solid fa-landmark-dome"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-3 group-hover:text-cyan-300 transition-colors">Bảo Tàng Điêu Khắc Chăm</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-6">
+                            Bảo tàng lưu giữ bộ sưu tập hiện vật điêu khắc Champa quy mô lớn nhất thế giới, phản ánh đỉnh cao nghệ thuật kiến trúc đá sa thạch từ thế kỷ VII đến thế kỷ XV.
+                        </p>
+                    </div>
+                    <div class="pt-6 border-t border-white/10 flex items-center justify-between">
+                        <span class="text-xs text-cyan-400/80 font-medium"><i class="fa-solid fa-award mr-1"></i> Di sản văn hóa độc bản</span>
+                        <button onclick="openDetailModal('Bảo tàng Điêu khắc Chăm', 'Khởi công năm 1915 bên bờ sông Hàn, bảo tàng trưng bày hàng trăm bảo vật quốc gia như Đài thờ Mỹ Sơn E1, Đài thờ Trà Kiệu, tượng Bồ Tát Tara... mang giá trị lịch sử và nghệ thuật điêu khắc nhân loại vô giá.')" class="text-cyan-400 hover:text-cyan-300 font-bold text-xs flex items-center gap-1">Tìm hiểu <i class="fa-solid fa-chevron-right text-[10px]"></i></button>
+                    </div>
+                </div>
+
+                <!-- Di tích 3: Hải Vân Quan -->
+                <div class="reveal-element glass-dark rounded-3xl p-8 border border-white/10 hover:border-emerald-400/40 hover:shadow-2xl transition-all flex flex-col justify-between group">
+                    <div>
+                        <div class="w-14 h-14 rounded-2xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-2xl font-bold mb-6 group-hover:scale-110 group-hover:rotate-6 transition-all">
+                            <i class="fa-solid fa-mountain"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-3 group-hover:text-emerald-300 transition-colors">Di Tích Hải Vân Quan</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-6">
+                            Cửa ải phòng thủ hiểm yếu trên đỉnh đèo Hải Vân được xây dựng thời vua Minh Mạng (1826), mang biển ngạch đá khắc danh hiệu "Thiên hạ đệ nhất hùng quan".
+                        </p>
+                    </div>
+                    <div class="pt-6 border-t border-white/10 flex items-center justify-between">
+                        <span class="text-xs text-emerald-400/80 font-medium"><i class="fa-solid fa-shield mr-1"></i> Cửa ngõ Bắc - Nam</span>
+                        <button onclick="openDetailModal('Hải Vân Quan', 'Hải Vân Quan nằm ở độ cao 496m trên đỉnh đèo Hải Vân, ranh giới giữa Thừa Thiên Huế và Đà Nẵng. Cụm công trình gồm các cổng vòm thành đá, hệ thống lũy pháo đài kiên cố vừa được trùng tu khang trang, là địa điểm ngắm trọn biển trời ngoạn mục.')" class="text-cyan-400 hover:text-cyan-300 font-bold text-xs flex items-center gap-1">Tìm hiểu <i class="fa-solid fa-chevron-right text-[10px]"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION: NHÂN VẬT LỊCH SỬ TIÊU BIỂU -->
+    <section id="nhan-vat" class="py-24 bg-slate-900 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16 reveal-element">
+                <span class="px-4 py-1.5 rounded-full bg-rose-500/10 text-rose-400 border border-rose-500/20 font-bold text-xs uppercase tracking-wider inline-block mb-3">
+                    <i class="fa-solid fa-users mr-1.5"></i> Những người con ưu tú
+                </span>
+                <h2 class="text-3xl sm:text-5xl font-black text-white">Nhân Vật Lịch Sử Tiêu Biểu</h2>
+                <p class="text-slate-400 text-lg mt-4">Những danh nhân, nhà tư tưởng và chí sĩ yêu nước kiệt xuất của quê hương xứ Quảng - Đà Nẵng.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Phan Châu Trinh -->
+                <div class="reveal-element glass-dark rounded-3xl p-8 border border-white/10 flex flex-col items-center text-center group hover:border-rose-400/50 hover:shadow-2xl transition-all">
+                    <div class="relative w-28 h-28 rounded-full bg-gradient-to-tr from-rose-500 to-amber-500 p-1 mb-6 shadow-xl group-hover:scale-110 transition-transform">
+                        <div class="w-full h-full rounded-full bg-slate-900 flex items-center justify-center text-4xl text-rose-400">
+                            <i class="fa-solid fa-book-open-reader"></i>
+                        </div>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-1">Phan Châu Trinh</h3>
+                    <span class="text-xs font-semibold px-3 py-1 bg-rose-500/20 text-rose-300 rounded-full mb-4 border border-rose-500/30">Nhà chí sĩ Duy Tân (1872 - 1926)</span>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-6">
+                        Hiệu Tây Hồ, ngọn cờ đầu của phong trào Duy Tân với chủ trương bất bạo động: "Khai dân trí, chấn dân khí, hậu dân sinh", khai sáng tư tưởng canh tân đất nước đầu thế kỷ XX.
+                    </p>
+                    <button onclick="openDetailModal('Chí sĩ Phan Châu Trinh', 'Phan Châu Trinh sinh tại làng Tây Hồ, xứ Quảng. Ông là nhà tư tưởng dân chủ lớn của Việt Nam, phản đối bạo động vô ích, kiên trì cổ vũ mở trường dạy học chữ Quốc ngữ, chấn hưng thực nghiệp, bãi bỏ hủ tục và đòi quyền bình đẳng cho nhân dân.')" class="mt-auto px-6 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-slate-200 hover:text-white border border-white/10 text-xs font-bold transition-all">Xem tiểu sử</button>
+                </div>
+
+                <!-- Ông Ích Khiêm -->
+                <div class="reveal-element glass-dark rounded-3xl p-8 border border-white/10 flex flex-col items-center text-center group hover:border-amber-400/50 hover:shadow-2xl transition-all">
+                    <div class="relative w-28 h-28 rounded-full bg-gradient-to-tr from-amber-500 to-orange-500 p-1 mb-6 shadow-xl group-hover:scale-110 transition-transform">
+                        <div class="w-full h-full rounded-full bg-slate-900 flex items-center justify-center text-4xl text-amber-400">
+                            <i class="fa-solid fa-shield"></i>
+                        </div>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-1">Ông Ích Khiêm</h3>
+                    <span class="text-xs font-semibold px-3 py-1 bg-amber-500/20 text-amber-300 rounded-full mb-4 border border-amber-500/30">Danh tướng triều Nguyễn (1831 - 1884)</span>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-6">
+                        Người con làng Phong Lệ (Hòa Vang, Đà Nẵng), một vị tướng văn võ toàn tài, mưu lược dũng cảm, lập nhiều chiến công lớn và nổi tiếng với khí phách khẳng khái, thương dân.
+                    </p>
+                    <button onclick="openDetailModal('Danh tướng Ông Ích Khiêm', 'Ông Ích Khiêm thi đỗ Cử nhân năm 1847 dưới triều vua Thiệu Trị. Ông từng giữ chức Tả Kỳ Đô thống, nổi tiếng về tài dùng binh và đức tính liêm khiết. Sau khi mất, ông được người dân Đà Nẵng lập lăng mộ tôn kính tại phường Hòa Thọ Đông.')" class="mt-auto px-6 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-slate-200 hover:text-white border border-white/10 text-xs font-bold transition-all">Xem tiểu sử</button>
+                </div>
+
+                <!-- Thái Phiên -->
+                <div class="reveal-element glass-dark rounded-3xl p-8 border border-white/10 flex flex-col items-center text-center group hover:border-cyan-400/50 hover:shadow-2xl transition-all">
+                    <div class="relative w-28 h-28 rounded-full bg-gradient-to-tr from-cyan-500 to-blue-500 p-1 mb-6 shadow-xl group-hover:scale-110 transition-transform">
+                        <div class="w-full h-full rounded-full bg-slate-900 flex items-center justify-center text-4xl text-cyan-400">
+                            <i class="fa-solid fa-flag"></i>
+                        </div>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-1">Thái Phiên</h3>
+                    <span class="text-xs font-semibold px-3 py-1 bg-cyan-500/20 text-cyan-300 rounded-full mb-4 border border-cyan-500/30">Lãnh đạo khởi nghĩa 1916 (1882 - 1916)</span>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-6">
+                        Chí sĩ yêu nước lãnh đạo cuộc khởi nghĩa Duy Tân năm 1916 tại Trung Kỳ cùng vua Duy Tân và Trần Cao Vân, nêu cao khí tiết kiên trung bất khuất trước quân thù.
+                    </p>
+                    <button onclick="openDetailModal('Chí sĩ Thái Phiên', 'Thái Phiên sinh tại làng Nghi An (nay thuộc phường Hòa Phát, quận Cẩm Lệ, Đà Nẵng). Ông là nhân vật chủ chốt của Việt Nam Quang Phục Hội, hy sinh oanh liệt khi cuộc khởi nghĩa năm 1916 bất thành, để lại tấm gương sáng ngời cho hậu thế.')" class="mt-auto px-6 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-slate-200 hover:text-white border border-white/10 text-xs font-bold transition-all">Xem tiểu sử</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION: ĐẶC ĐIỂM ĐỊA PHƯƠNG - VĂN HÓA & ẨM THỰC -->
+    <section id="dac-diem" class="py-24 bg-slate-950 relative border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16 reveal-element">
+                <span class="px-4 py-1.5 rounded-full bg-orange-500/10 text-orange-400 border border-orange-500/20 font-bold text-xs uppercase tracking-wider inline-block mb-3">
+                    <i class="fa-solid fa-utensils mr-1.5"></i> Bản sắc độc đáo
+                </span>
+                <h2 class="text-3xl sm:text-5xl font-black text-white">Đặc Điểm & Ẩm Thực Đà Nẵng</h2>
+                <p class="text-slate-400 text-lg mt-4">Hòa mình vào nếp sống chan hòa, khí hậu ôn hòa và nền ẩm thực nức tiếng làm say đắm mọi giác quan.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Ẩm thực Mì Quảng -->
+                <div class="reveal-element glass-dark rounded-3xl p-6 border border-white/10 hover:border-orange-500/40 transition-all flex flex-col justify-between group">
+                    <div>
+                        <div class="w-12 h-12 rounded-2xl bg-orange-500/20 text-orange-400 flex items-center justify-center text-2xl font-bold mb-6 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-bowl-food"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2 group-hover:text-orange-300 transition-colors">Mì Quảng & Bánh Tráng Cuốn</h3>
+                        <p class="text-slate-400 text-xs leading-relaxed mb-6">
+                            Món ăn quốc hồn quốc túy với sợi mì dẻo dai, nước dùng tôm thịt đậm đà, ăn kèm bánh tráng nướng giòn rụm và rau sống tươi xanh cùng bánh tráng cuốn thịt heo hai đầu da trứ danh.
+                        </p>
+                    </div>
+                    <div class="pt-4 border-t border-white/10 text-xs text-orange-400 font-bold flex items-center gap-1.5">
+                        <i class="fa-solid fa-heart"></i> Đặc sản trứ danh số 1
+                    </div>
+                </div>
+
+                <!-- Khí Hậu Nắng Ấm -->
+                <div class="reveal-element glass-dark rounded-3xl p-6 border border-white/10 hover:border-cyan-500/40 transition-all flex flex-col justify-between group">
+                    <div>
+                        <div class="w-12 h-12 rounded-2xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center text-2xl font-bold mb-6 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-cloud-sun"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2 group-hover:text-cyan-300 transition-colors">Khí Hậu Ôn Hòa</h3>
+                        <p class="text-slate-400 text-xs leading-relaxed mb-6">
+                            Vùng khí hậu nhiệt đới gió mùa chan hòa nắng ấm, mùa khô kéo dài từ tháng 1 đến tháng 8 cực kỳ thuận lợi cho các hoạt động tắm biển, nghỉ dưỡng và khám phá núi rừng.
+                        </p>
+                    </div>
+                    <div class="pt-4 border-t border-white/10 text-xs text-cyan-400 font-bold flex items-center gap-1.5">
+                        <i class="fa-solid fa-sun"></i> Nắng ấm quanh năm
+                    </div>
+                </div>
+
+                <!-- Con Người Thân Thiện -->
+                <div class="reveal-element glass-dark rounded-3xl p-6 border border-white/10 hover:border-emerald-500/40 transition-all flex flex-col justify-between group">
+                    <div>
+                        <div class="w-12 h-12 rounded-2xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-2xl font-bold mb-6 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-people-roof"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2 group-hover:text-emerald-300 transition-colors">Con Người Văn Minh</h3>
+                        <p class="text-slate-400 text-xs leading-relaxed mb-6">
+                            Người Đà Nẵng đôn hậu, chân chất, mến khách và nghĩa tình. Thành phố nổi tiếng với chính sách "5 không, 3 có, 4 an" tạo nên một đô thị an bình, sạch đẹp bậc nhất.
+                        </p>
+                    </div>
+                    <div class="pt-4 border-t border-white/10 text-xs text-emerald-400 font-bold flex items-center gap-1.5">
+                        <i class="fa-solid fa-hands-holding-child"></i> Mến khách & Nghĩa tình
+                    </div>
+                </div>
+
+                <!-- Lễ Hội Pháo Hoa Quốc Tế DIFF -->
+                <div class="reveal-element glass-dark rounded-3xl p-6 border border-white/10 hover:border-purple-500/40 transition-all flex flex-col justify-between group">
+                    <div>
+                        <div class="w-12 h-12 rounded-2xl bg-purple-500/20 text-purple-400 flex items-center justify-center text-2xl font-bold mb-6 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2 group-hover:text-purple-300 transition-colors">Lễ Hội Pháo Hoa DIFF</h3>
+                        <p class="text-slate-400 text-xs leading-relaxed mb-6">
+                            Lễ hội pháo hoa quốc tế thường niên bên bờ sông Hàn quy tụ các đội thi hàng đầu thế giới, thắp sáng bầu trời đêm Đà Nẵng bằng những bữa tiệc âm thanh và ánh sáng đỉnh cao.
+                        </p>
+                    </div>
+                    <div class="pt-4 border-t border-white/10 text-xs text-purple-400 font-bold flex items-center gap-1.5">
+                        <i class="fa-solid fa-fireworks"></i> Sự kiện tầm cỡ thế giới
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-slate-950 text-slate-400 py-16 border-t border-white/10 relative z-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12 border-b border-white/10 pb-12">
+                <div class="md:col-span-2 space-y-4">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-500 to-indigo-600 flex items-center justify-center text-white font-bold shadow-lg">
+                            <i class="fa-solid fa-water"></i>
+                        </div>
+                        <span class="text-2xl font-extrabold text-white">Đà Nẵng Discovery</span>
+                    </div>
+                    <p class="text-slate-400 text-sm leading-relaxed max-w-md">
+                        Cổng thông tin du lịch và khám phá số 1 về thành phố Đà Nẵng - Thành phố đáng sống nhất Việt Nam. Nơi lưu giữ ký ức lịch sử và nhịp đập hiện đại.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="text-sm font-bold text-white uppercase tracking-wider mb-4">Liên kết danh mục</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#trang-chu" class="hover:text-cyan-400 transition-colors">Trang chủ</a></li>
+                        <li><a href="#bang-chuyen" class="hover:text-cyan-400 transition-colors">Băng chuyền địa danh</a></li>
+                        <li><a href="#dia-danh" class="hover:text-cyan-400 transition-colors">Danh lam thắng cảnh</a></li>
+                        <li><a href="#di-tich" class="hover:text-cyan-400 transition-colors">Di tích lịch sử</a></li>
+                        <li><a href="#nhan-vat" class="hover:text-cyan-400 transition-colors">Nhân vật lịch sử</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-sm font-bold text-white uppercase tracking-wider mb-4">Thông tin du lịch</h4>
+                    <p class="text-sm text-slate-400 mb-2"><i class="fa-solid fa-location-dot mr-2 text-cyan-400"></i> TP. Đà Nẵng, Việt Nam</p>
+                    <p class="text-sm text-slate-400 mb-2"><i class="fa-solid fa-envelope mr-2 text-cyan-400"></i> explore@danangdiscovery.vn</p>
+                    <p class="text-sm text-slate-400 mb-4"><i class="fa-solid fa-phone mr-2 text-cyan-400"></i> 1800 6868 (Hotline Du lịch)</p>
+                    <div class="flex space-x-3">
+                        <a href="#" class="w-9 h-9 rounded-xl bg-white/5 hover:bg-cyan-500 text-slate-300 hover:text-white flex items-center justify-center transition-all"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#" class="w-9 h-9 rounded-xl bg-white/5 hover:bg-cyan-500 text-slate-300 hover:text-white flex items-center justify-center transition-all"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#" class="w-9 h-9 rounded-xl bg-white/5 hover:bg-cyan-500 text-slate-300 hover:text-white flex items-center justify-center transition-all"><i class="fa-brands fa-youtube"></i></a>
+                        <a href="#" class="w-9 h-9 rounded-xl bg-white/5 hover:bg-cyan-500 text-slate-300 hover:text-white flex items-center justify-center transition-all"><i class="fa-brands fa-tiktok"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500">
+                <p>&copy; 2026 Đà Nẵng Discovery. Được xây dựng với tình yêu dành cho Đà Nẵng.</p>
+                <p class="mt-2 sm:mt-0">Đồ họa & Hiệu ứng Băng chuyền tương tác hiện đại.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- INTERACTIVE DETAIL MODAL WITH IMAGE & RICH INFO -->
+    <div id="detail-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 backdrop-blur-md hidden p-4 transition-all duration-300">
+        <div class="glass-dark rounded-3xl max-w-xl w-full overflow-hidden border border-white/20 shadow-2xl relative transform transition-all scale-95 opacity-0 duration-300" id="modal-content-box">
+            <!-- Modal Header Image -->
+            <div class="relative h-56 w-full overflow-hidden" id="modal-img-wrap">
+                <img id="modal-img" src="https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?auto=format&fit=crop&w=1000&q=80" alt="Detail" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent"></div>
+                <button onclick="closeDetailModal()" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-slate-900/80 hover:bg-slate-800 text-white flex items-center justify-center transition-colors border border-white/20">
+                    <i class="fa-solid fa-xmark text-base"></i>
+                </button>
+            </div>
+
+            <div class="p-6 sm:p-8">
+                <div class="flex items-center gap-2 text-xs font-bold text-cyan-400 uppercase tracking-wider mb-2">
+                    <i class="fa-solid fa-map-location-dot"></i> Thông tin điểm đến Đà Nẵng
+                </div>
+                <h3 id="modal-title" class="text-2xl sm:text-3xl font-black text-white mb-4">Tiêu đề địa danh</h3>
+                <p id="modal-desc" class="text-slate-300 text-sm leading-relaxed mb-6">Nội dung chi tiết...</p>
+                
+                <div class="flex items-center gap-3">
+                    <button onclick="closeDetailModal()" class="flex-1 py-3.5 rounded-xl bg-gradient-to-r from-cyan-500 to-sky-600 hover:from-cyan-400 hover:to-sky-500 text-white font-bold shadow-lg shadow-cyan-500/25 transition-all">
+                        Đã hiểu & Khám phá tiếp
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- BACK TO TOP BUTTON -->
+    <button id="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="fixed bottom-6 right-6 z-40 w-12 h-12 rounded-2xl glass-dark border border-cyan-400/30 text-cyan-400 hover:bg-cyan-500 hover:text-white shadow-2xl flex items-center justify-center transition-all opacity-0 pointer-events-none hover:scale-110">
+        <i class="fa-solid fa-arrow-up"></i>
+    </button>
+
+    <!-- SCRIPTS -->
+    <script>
+        // Hero Background Interactive Canvas Waves & Floating Particles
+        const canvas = document.getElementById('hero-canvas');
+        if (canvas) {
+            const ctx = canvas.getContext('2d');
+            let width, height, particles = [];
+
+            function resizeCanvas() {
+                width = canvas.width = window.innerWidth;
+                height = canvas.height = window.innerHeight;
+            }
+            window.addEventListener('resize', resizeCanvas);
+            resizeCanvas();
+
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * width;
+                    this.y = Math.random() * height;
+                    this.size = Math.random() * 2.5 + 0.5;
+                    this.speedX = (Math.random() - 0.5) * 0.8;
+                    this.speedY = (Math.random() - 0.5) * 0.8;
+                    this.color = Math.random() > 0.5 ? '#38bdf8' : '#818cf8';
+                    this.alpha = Math.random() * 0.7 + 0.2;
+                }
+                update() {
+                    this.x += this.speedX;
+                    this.y += this.speedY;
+                    if (this.x < 0) this.x = width;
+                    if (this.x > width) this.x = 0;
+                    if (this.y < 0) this.y = height;
+                    if (this.y > height) this.y = 0;
+                }
+                draw() {
+                    ctx.save();
+                    ctx.globalAlpha = this.alpha;
+                    ctx.fillStyle = this.color;
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.restore();
+                }
+            }
+
+            for (let i = 0; i < 50; i++) {
+                particles.push(new Particle());
+            }
+
+            function animateParticles() {
+                ctx.clearRect(0, 0, width, height);
+                particles.forEach(p => {
+                    p.update();
+                    p.draw();
+                });
+                requestAnimationFrame(animateParticles);
+            }
+            animateParticles();
+        }
+
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Navbar & Back To Top on Scroll
+        const navbar = document.getElementById('navbar');
+        const backToTop = document.getElementById('back-to-top');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                backToTop.classList.remove('opacity-0', 'pointer-events-none');
+                backToTop.classList.add('opacity-100', 'pointer-events-auto');
+            } else {
+                backToTop.classList.add('opacity-0', 'pointer-events-none');
+                backToTop.classList.remove('opacity-100', 'pointer-events-auto');
+            }
+        });
+
+        // Scroll Reveal Observer
+        const revealElements = document.querySelectorAll('.reveal-element');
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.15,
+            rootMargin: "0px 0px -50px 0px"
+        });
+
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // CONVEYOR BELT CONTROLS
+        const track1 = document.getElementById('conveyor-track-1');
+        const track2 = document.getElementById('conveyor-track-2');
+        let isPaused = false;
+        let isReversed = false;
+
+        function toggleConveyorPlay() {
+            isPaused = !isPaused;
+            const playBtn = document.getElementById('conveyor-play-btn');
+            const icon = document.getElementById('play-pause-icon');
+            const text = document.getElementById('play-pause-text');
+
+            if (isPaused) {
+                track1.classList.add('is-paused');
+                track2.classList.add('is-paused');
+                icon.className = 'fa-solid fa-play text-cyan-400';
+                text.textContent = 'Tiếp tục';
+            } else {
+                track1.classList.remove('is-paused');
+                track2.classList.remove('is-paused');
+                icon.className = 'fa-solid fa-pause text-cyan-400';
+                text.textContent = 'Tạm dừng';
+            }
+        }
+
+        function setConveyorSpeed(speed) {
+            let dur1, dur2;
+            ['speed-slow', 'speed-normal', 'speed-fast'].forEach(id => {
+                const btn = document.getElementById(id);
+                btn.className = 'px-2.5 py-1 rounded-lg text-xs font-semibold text-slate-300 hover:text-white hover:bg-white/10 transition-colors';
+            });
+
+            if (speed === 'slow') {
+                dur1 = '60s';
+                dur2 = '65s';
+                document.getElementById('speed-slow').className = 'px-2.5 py-1 rounded-lg text-xs font-bold text-cyan-300 bg-cyan-500/20 border border-cyan-500/30 transition-colors';
+            } else if (speed === 'fast') {
+                dur1 = '20s';
+                dur2 = '22s';
+                document.getElementById('speed-fast').className = 'px-2.5 py-1 rounded-lg text-xs font-bold text-cyan-300 bg-cyan-500/20 border border-cyan-500/30 transition-colors';
+            } else {
+                dur1 = '38s';
+                dur2 = '42s';
+                document.getElementById('speed-normal').className = 'px-2.5 py-1 rounded-lg text-xs font-bold text-cyan-300 bg-cyan-500/20 border border-cyan-500/30 transition-colors';
+            }
+
+            track1.style.animationDuration = dur1;
+            track2.style.animationDuration = dur2;
+        }
+
+        function reverseConveyorDirection() {
+            isReversed = !isReversed;
+            if (isReversed) {
+                track1.style.animationDirection = 'reverse';
+                track2.style.animationDirection = 'reverse';
+            } else {
+                track1.style.animationDirection = 'normal';
+                track2.style.animationDirection = 'normal';
+            }
+        }
+
+        // Category Filter for Destinations
+        function filterDestinations(category) {
+            const tabs = document.querySelectorAll('.dest-tab-btn');
+            tabs.forEach(btn => {
+                btn.className = 'dest-tab-btn px-5 py-2.5 rounded-xl glass-dark text-slate-300 hover:text-white text-sm font-semibold border border-white/10 hover:border-cyan-500/30 transition-all';
+            });
+            event.target.className = 'dest-tab-btn active px-5 py-2.5 rounded-xl bg-cyan-500 text-white text-sm font-semibold shadow-lg shadow-cyan-500/30 transition-all';
+
+            const cards = document.querySelectorAll('.dest-card');
+            cards.forEach(card => {
+                if (category === 'all' || card.classList.contains(category)) {
+                    card.classList.remove('hidden');
+                    setTimeout(() => { card.style.opacity = '1'; card.style.transform = 'scale(1)'; }, 20);
+                } else {
+                    card.style.opacity = '0';
+                    card.style.transform = 'scale(0.95)';
+                    setTimeout(() => { card.classList.add('hidden'); }, 300);
+                }
+            });
+        }
+
+        // Detail Modal Logic
+        const modal = document.getElementById('detail-modal');
+        const modalContentBox = document.getElementById('modal-content-box');
+        const modalTitle = document.getElementById('modal-title');
+        const modalDesc = document.getElementById('modal-desc');
+        const modalImg = document.getElementById('modal-img');
+
+        function openDetailModal(title, description, imgUrl) {
+            modalTitle.textContent = title;
+            modalDesc.textContent = description;
+            if (imgUrl) {
+                modalImg.src = imgUrl;
+                document.getElementById('modal-img-wrap').style.display = 'block';
+            } else {
+                document.getElementById('modal-img-wrap').style.display = 'none';
+            }
+
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modalContentBox.classList.remove('scale-95', 'opacity-0');
+                modalContentBox.classList.add('scale-100', 'opacity-100');
+            }, 10);
+        }
+
+        function closeDetailModal() {
+            modalContentBox.classList.remove('scale-100', 'opacity-100');
+            modalContentBox.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeDetailModal();
+        });
+
+        // 3D Card Tilt Effect on Mouse Move
+        document.querySelectorAll('.card-3d').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                card.style.transform = `rotateY(${x * 0.04}deg) rotateX(${-y * 0.04}deg) translateY(-4px)`;
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'rotateY(0deg) rotateX(0deg) translateY(0px)';
+            });
+        });
+
+        // Background Music - Welcome to Da Nang City
+        (function() {
+            const bgMusic = document.getElementById('bg-music');
+            if (!bgMusic) return;
+            bgMusic.volume = 0.45;
+            const tryPlay = () => bgMusic.play().catch(() => {});
+            tryPlay();
+            const events = ['click','keydown','touchstart','scroll','mousemove','mousedown','pointerdown'];
+            const unlock = () => { tryPlay(); events.forEach(e => document.removeEventListener(e, unlock)); };
+            events.forEach(e => document.addEventListener(e, unlock, { once: true }));
+        })();
+    </script>
+
+    <!-- Background Music -->
+    <audio id="bg-music" autoplay loop preload="auto">
+        <source src="Welcome to Da Nang City.mp3" type="audio/mpeg">
+    </audio>
+</body>
+</html>
